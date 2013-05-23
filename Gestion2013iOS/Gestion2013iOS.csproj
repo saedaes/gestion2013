@@ -99,11 +99,16 @@
       <DependentUpon>TasksView.cs</DependentUpon>
     </Compile>
     <Compile Include="MapViewController.cs" />
+    <Compile Include="NewTaskView.cs" />
+    <Compile Include="NewTaskView.designer.cs">
+      <DependentUpon>NewTaskView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <InterfaceDefinition Include="MainView.xib" />
     <InterfaceDefinition Include="TasksView.xib" />
+    <InterfaceDefinition Include="NewTaskView.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Plus_Button.png" />

@@ -10,6 +10,7 @@ namespace Gestion2013iOS
 	public partial class TasksView : UIViewController
 	{
 		MapViewController mapView;
+		NewTaskView newTaskView;
 		public TasksView () : base ("TasksView", null)
 		{
 			this.Title = "Listado de tareas";
@@ -64,6 +65,13 @@ namespace Gestion2013iOS
 			Add(tblTasks);
 
 
+			//Boton de nueva tarea
+			btnNuevo.TouchUpInside += (sender, e) => {
+				newTaskView = new NewTaskView();
+				this.NavigationController.PushViewController(newTaskView, true);
+			};
+
+			//Boton de mapa
 			btnMap.TouchUpInside += (sender, e) => {
 				mapView = new MapViewController();
 				this.NavigationController.PushViewController(mapView, true);

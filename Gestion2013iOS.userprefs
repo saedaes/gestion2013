@@ -1,4 +1,4 @@
-﻿<Properties>
+﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.5.1" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Gestion2013iOS/TasksView.cs">
     <Files>
