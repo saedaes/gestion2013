@@ -103,6 +103,7 @@
     <Compile Include="NewTaskView.designer.cs">
       <DependentUpon>NewTaskView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ActionSheetPicker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
