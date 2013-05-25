@@ -21,7 +21,8 @@ namespace Gestion2013iOS {
 			mapView.AutoresizingMask = UIViewAutoresizing.FlexibleDimensions;		
 			//mapView.MapType = MKMapType.Standard;	// this is the default
 			//mapView.MapType = MKMapType.Satellite;
-			//mapView.MapType = MKMapType.Hybrid;
+			mapView.MapType = MKMapType.Hybrid;
+			mapView.ZoomEnabled = true;
 			View.AddSubview(mapView);
 			
 			// this is all that's required to show the blue dot indicating user-location
@@ -33,7 +34,7 @@ namespace Gestion2013iOS {
 				if (mapView.UserLocation != null) {
 					Console.WriteLine ("userloc:"+mapView.UserLocation.Coordinate.Latitude + "," + mapView.UserLocation.Coordinate.Longitude);
 					CLLocationCoordinate2D coords = mapView.UserLocation.Coordinate;
-					MKCoordinateSpan span = new MKCoordinateSpan(MilesToLatitudeDegrees(2), MilesToLongitudeDegrees(2, coords.Latitude));
+					MKCoordinateSpan span = new MKCoordinateSpan(MilesToLatitudeDegrees(1), MilesToLongitudeDegrees(1, coords.Latitude));
 					mapView.Region = new MKCoordinateRegion(coords, span);
 				}
 			};

@@ -15,5 +15,9 @@
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>3.2</string>
+	<key>CFBundleDisplayName</key>
+	<string>Gestion 2013</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
 </dict>
 </plist>

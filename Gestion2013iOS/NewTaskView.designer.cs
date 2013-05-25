@@ -28,6 +28,12 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel lblFechaCompr { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpTitulo { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextView cmpDescripcion { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -59,6 +65,16 @@ namespace Gestion2013iOS
 			if (lblFechaCompr != null) {
 				lblFechaCompr.Dispose ();
 				lblFechaCompr = null;
+			}
+
+			if (cmpTitulo != null) {
+				cmpTitulo.Dispose ();
+				cmpTitulo = null;
+			}
+
+			if (cmpDescripcion != null) {
+				cmpDescripcion.Dispose ();
+				cmpDescripcion = null;
 			}
 		}
 	}
