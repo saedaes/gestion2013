@@ -111,15 +111,27 @@
     </Compile>
     <Compile Include="ActionSheetPicker.cs" />
     <Compile Include="ActionSheetDatePicker.cs" />
+    <Compile Include="TaskDetailView.cs" />
+    <Compile Include="TaskDetailView.designer.cs">
+      <DependentUpon>TaskDetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TasksService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <InterfaceDefinition Include="MainView.xib" />
     <InterfaceDefinition Include="TasksView.xib" />
     <InterfaceDefinition Include="NewTaskView.xib" />
+    <InterfaceDefinition Include="TaskDetailView.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Plus_Button.png" />
     <BundleResource Include="Resources\map_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\External\Newtonsoft.Json\Newtonsoft.Json\Newtonsoft.Json.MonoTouch.csproj">
+      <Project>{12448CD5-D860-4C1C-8B9F-139F3794B9BC}</Project>
+      <Name>Newtonsoft.Json.MonoTouch</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

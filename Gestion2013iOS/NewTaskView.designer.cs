@@ -34,6 +34,15 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UITextView cmpDescripcion { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel lblLatitud { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel lblLongitud { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnGuardar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -75,6 +84,21 @@ namespace Gestion2013iOS
 			if (cmpDescripcion != null) {
 				cmpDescripcion.Dispose ();
 				cmpDescripcion = null;
+			}
+
+			if (lblLatitud != null) {
+				lblLatitud.Dispose ();
+				lblLatitud = null;
+			}
+
+			if (lblLongitud != null) {
+				lblLongitud.Dispose ();
+				lblLongitud = null;
+			}
+
+			if (btnGuardar != null) {
+				btnGuardar.Dispose ();
+				btnGuardar = null;
 			}
 		}
 	}

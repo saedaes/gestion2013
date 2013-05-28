@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MonoTouch.CoreLocation;
 
 namespace Gestion2013iOS
 {
@@ -14,7 +15,7 @@ namespace Gestion2013iOS
 		ActionSheetDatePicker actionSheetDatePicker1;
 		PickerDataModel pickerDataModel;
 		bool listo = false;
-
+		CLLocationManager iPhoneLocationManager = null;
 		public NewTaskView () : base ("NewTaskView", null)
 		{
 			this.Title = "Nueva Tarea";
@@ -28,9 +29,37 @@ namespace Gestion2013iOS
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-		public override void ViewDidLoad ()
+		public override void ViewWillAppear (bool animated)
 		{
-			base.ViewDidLoad ();
+			base.ViewWillAppear (animated);
+
+
+			//Declarar el Location Manager
+			iPhoneLocationManager = new CLLocationManager ();
+			iPhoneLocationManager.DesiredAccuracy = CLLocation.AccuracyNearestTenMeters;
+
+			//Obtener la posicion del dispositivo
+			//El metodo es diferente en iOS 6 se verifica la version del S.O. 
+			if (UIDevice.CurrentDevice.CheckSystemVersion (6, 0)) {
+				iPhoneLocationManager.LocationsUpdated += (object sender, CLLocationsUpdatedEventArgs e) => {
+					UpdateLocation (e.Locations [e.Locations.Length - 1]);
+				};
+			}else{
+				iPhoneLocationManager.UpdatedLocation += (object sender, CLLocationUpdatedEventArgs e) => {
+					UpdateLocation (e.NewLocation);
+				};
+			}
+
+			iPhoneLocationManager.UpdatedHeading += (object sender, CLHeadingUpdatedEventArgs e) => {
+			
+			};
+
+
+			//Actualizar la ubicacion 
+			if (CLLocationManager.LocationServicesEnabled)
+				iPhoneLocationManager.StartUpdatingLocation ();
+			if (CLLocationManager.HeadingAvailable)
+				iPhoneLocationManager.StartUpdatingHeading ();
 
 			//Se esconde el booton para ir a la vista anterior
 			this.NavigationItem.HidesBackButton = true;
@@ -105,7 +134,7 @@ namespace Gestion2013iOS
 				DateTime fecha1 = (s as UIDatePicker).Date;
 				DateTime fecha2 =fecha1.AddDays(-1);
 				String fecha3 = String.Format("{0:dd/MM/yyyy}",fecha2);
-				this.lblFechaCont.Text = fecha3;
+				this.lblFechaCompr.Text = fecha3;
 			};
 
 			//Opciones para la lista de prioridades
@@ -125,6 +154,12 @@ namespace Gestion2013iOS
 			pickerDataModel.ValueChanged += (sender, e) => {
 				this.lblPrioridad.Text = pickerDataModel.SelectedItem.ToString();
 			};
+		}
+
+		public void UpdateLocation (CLLocation newLocation)
+		{
+			this.lblLatitud.Text = newLocation.Coordinate.Latitude.ToString ();
+			this.lblLongitud.Text = newLocation.Coordinate.Longitude.ToString ();
 		}
 
 		public override void TouchesEnded (NSSet touches, UIEvent evt)

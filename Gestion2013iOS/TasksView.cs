@@ -12,6 +12,7 @@ namespace Gestion2013iOS
 		MapViewController mapView;
 		NewTaskView newTaskView;
 		UIToolbar toolbar;
+		TasksService ts;
 		public TasksView () : base ("TasksView", null)
 		{
 			this.Title = "Listado de tareas";
@@ -54,13 +55,15 @@ namespace Gestion2013iOS
 			//posionamiento del boton
 			this.NavigationItem.LeftBarButtonItem = cerrarSesion;
 
-			//string[] tableItems = new string[] {"Tarea1","Tarea2","Tarea3","Tarea4","Tarea5","Tarea5"};
-			List<String> tableItems = new List<String>();
+
+			/*List<String> tableItems = new List<String>();
 			tableItems.Add("Tarea 1");
 			tableItems.Add("Tarea 2");
 			tableItems.Add("Tarea 3");
-			this.tblTasks.Source = new TasksTableSource(tableItems, this);
-
+			this.tblTasks.Source = new TasksTableSource(tableItems, this);*/
+			ts = new TasksService ();
+			List<TasksService> tableItems = ts.All ();
+			this.tblTasks.Source = new TasksTableSource (tableItems,this);
 			headerView.BackgroundColor = UIColor.Clear;
 			tblTasks.TableHeaderView = headerView;
 			Add(tblTasks);
@@ -78,7 +81,7 @@ namespace Gestion2013iOS
 				this.NavigationController.PushViewController(mapView, true);
 			};
 
-			// creacion de la barra de herramientas
+			/* // creacion de la barra de herramientas
 			float toolbarHeight = 50;
 			toolbar = new UIToolbar (new RectangleF (0
 			                                         , this.View.Frame.Height - this.NavigationController.NavigationBar.Frame.Height
@@ -86,8 +89,26 @@ namespace Gestion2013iOS
 			toolbar.AutoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth;
 			toolbar.TintColor = UIColor.FromRGB(62,150,15);
 
-			// boton acerca de
 
+			// boton Todos
+			UIBarButtonItem btnTodos = new UIBarButtonItem("Todos",UIBarButtonItemStyle.Bordered, null);
+			btnTodos.Clicked += (s, e) => { 
+				//List<String> tableItemsTodos = new List<String>();
+				//tableItemsTodos.Add("Tarea Finalizada 1");
+				//tableItemsTodos.Add("Tarea Finalizada 2");
+				//tableItemsTodos.Add("Tarea Finalizada 3");
+				this.tblTasks.Source = new TasksTableSource(tableItems, this);
+				this.tblTasks.ReloadData();
+			};
+			// fixed width
+			//UIBarButtonItem fixedWidth = new UIBarButtonItem (UIBarButtonSystemItem.FixedSpace);
+			//fixedWidth.Width = 35;
+
+			// flexible width space
+			UIBarButtonItem flexibleWidth0 = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
+
+
+			// boton Finalizados
 			UIBarButtonItem btnFinalizados = new UIBarButtonItem("Finalizados",UIBarButtonItemStyle.Bordered, null);
 			btnFinalizados.Clicked += (s, e) => { 
 				List<String> tableItemsFinalizados = new List<String>();
@@ -104,7 +125,7 @@ namespace Gestion2013iOS
 			// flexible width space
 			UIBarButtonItem flexibleWidth1 = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
-			// boton descripcion
+			// boton En proceso
 			UIBarButtonItem btnProceso = new UIBarButtonItem("En Proceso",UIBarButtonItemStyle.Bordered, null);
 			btnProceso.Clicked += (s, e) => { 
 				List<String> tableItemsProceso = new List<String>();
@@ -118,7 +139,7 @@ namespace Gestion2013iOS
 			// flexible width space
 			UIBarButtonItem flexibleWidth2 = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
-			// boton informacion
+			// boton Cancelados
 			UIBarButtonItem btnCancelados = new UIBarButtonItem("Cancelados",UIBarButtonItemStyle.Bordered, null);
 			btnCancelados.Clicked += (s, e) => { 
 				List<String> tableItemsCancelados = new List<String>();
@@ -130,23 +151,24 @@ namespace Gestion2013iOS
 			};
 
 			// arreglo de botones para toolbar
-			UIBarButtonItem[] items = new UIBarButtonItem[] { 
+			UIBarButtonItem[] items = new UIBarButtonItem[] { btnTodos,flexibleWidth0,
 				btnFinalizados, flexibleWidth1, btnProceso, flexibleWidth2, btnCancelados};
 
 			// agregar los botones a la toolbar
 			toolbar.SetItems (items, false);			
 
 			// agregar la vista a la pantalla
-			this.View.AddSubview (toolbar);
+			this.View.AddSubview (toolbar);*/
 		}
 
 		//Clase para manejar la lista
 		class TasksTableSource : UITableViewSource 
 		{
-			List<String> tableItems;
+			List<TasksService> tableItems;
 			string cellIdentifier = "TableCell";
 			TasksView controller;
-			public TasksTableSource (List<String> items,TasksView controller ) 
+			TaskDetailView taskDetailView;
+			public TasksTableSource (List<TasksService> items,TasksView controller ) 
 			{
 				tableItems = items;
 				this.controller=controller;
@@ -170,7 +192,7 @@ namespace Gestion2013iOS
 					cell = new UITableViewCell (UITableViewCellStyle.Subtitle, cellIdentifier);
 				
 
-				cell.TextLabel.Text = tableItems[indexPath.Row];
+				cell.TextLabel.Text = tableItems[indexPath.Row].ToString();
 				cell.TextLabel.Font = UIFont.SystemFontOfSize(15);
 				cell.TextLabel.Lines = 2;
 				
@@ -180,7 +202,9 @@ namespace Gestion2013iOS
 			
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 			{
-
+				taskDetailView = new TaskDetailView ();
+				taskDetailView.setTask (tableItems[indexPath.Row]);
+				controller.NavigationController.PushViewController (taskDetailView, true);
 			}	
 			
 			public override void AccessoryButtonTapped (UITableView tableView, NSIndexPath indexPath)

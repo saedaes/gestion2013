@@ -5,15 +5,16 @@
       <File FileName="Gestion2013iOS/TasksView.cs" Line="1" Column="1" />
       <File FileName="Gestion2013iOS/MainView.cs" Line="1" Column="1" />
       <File FileName="../carnet_movil/CarnetMovil/CarnetMoviliOS/EventsView.cs" Line="1" Column="1" />
-      <File FileName="Gestion2013iOS/NewTaskView.cs" Line="134" Column="5" />
+      <File FileName="Gestion2013iOS/NewTaskView.cs" Line="171" Column="5" />
       <File FileName="../copaes-movil/CopaesMoviliOS/InstitucionesView.cs" Line="1" Column="1" />
       <File FileName="Gestion2013iOS/ActionSheetDatePicker.cs" Line="1" Column="1" />
+      <File FileName="../carnet_movil/CarnetMovil/CarnetMoviliOS/LocationView.cs" Line="217" Column="51" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Gestion2013iOS" expanded="True">
-            <Node name="NewTaskView.xib" selected="True" />
+            <Node name="NewTaskView.cs" selected="True" />
           </Node>
         </State>
       </Pad>
