@@ -11,7 +11,6 @@ namespace Gestion2013iOS
 	{
 		//Declaramos el usuario y la contraseña como estaticos para poder acceder a ellos. 
 		public static string user;
-		public static string userName;
 
 		TasksView tasksView;
 

@@ -64,6 +64,12 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel lblFecContacto { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnVerDetalle { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnAgregarDetalle { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -155,6 +161,16 @@ namespace Gestion2013iOS
 			if (lblFecContacto != null) {
 				lblFecContacto.Dispose ();
 				lblFecContacto = null;
+			}
+
+			if (btnVerDetalle != null) {
+				btnVerDetalle.Dispose ();
+				btnVerDetalle = null;
+			}
+
+			if (btnAgregarDetalle != null) {
+				btnAgregarDetalle.Dispose ();
+				btnAgregarDetalle = null;
 			}
 		}
 	}

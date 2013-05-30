@@ -30,6 +30,9 @@ namespace Gestion2013iOS
 		{
 			base.ViewDidLoad ();
 
+			ts = new TasksService ();
+			ts.setUser (MainView.user);
+
 			//Escondemos el boton de regreso hacia la pagina de inicio
 			this.NavigationItem.HidesBackButton = true;
 			
@@ -61,7 +64,6 @@ namespace Gestion2013iOS
 			tableItems.Add("Tarea 2");
 			tableItems.Add("Tarea 3");
 			this.tblTasks.Source = new TasksTableSource(tableItems, this);*/
-			ts = new TasksService ();
 			List<TasksService> tableItems = ts.All ();
 			this.tblTasks.Source = new TasksTableSource (tableItems,this);
 			headerView.BackgroundColor = UIColor.Clear;

@@ -10,7 +10,7 @@ namespace Gestion2013iOS
 		TasksService task;
 		public TaskDetailView () : base ("TaskDetailView", null)
 		{
-			this.Title = "Detalle de tarea";
+			this.Title = "Descripcion de tareas";
 		}
 
 		public void setTask(TasksService task1){

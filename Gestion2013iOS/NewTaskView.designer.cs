@@ -21,6 +21,9 @@ namespace Gestion2013iOS
 		MonoTouch.UIKit.UIButton btnFechaCompr { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UILabel lblResponsable { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel lblPrioridad { get; set; }
 
 		[Outlet]
@@ -43,6 +46,33 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton btnGuardar { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpNombre { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpPaterno { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpMaterno { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnBuscar { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpSolicitante { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpTelCasa { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpTelCel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField cmpCorreo { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextView cmpObservaciones { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -59,6 +89,11 @@ namespace Gestion2013iOS
 			if (btnFechaCompr != null) {
 				btnFechaCompr.Dispose ();
 				btnFechaCompr = null;
+			}
+
+			if (lblResponsable != null) {
+				lblResponsable.Dispose ();
+				lblResponsable = null;
 			}
 
 			if (lblPrioridad != null) {
@@ -99,6 +134,51 @@ namespace Gestion2013iOS
 			if (btnGuardar != null) {
 				btnGuardar.Dispose ();
 				btnGuardar = null;
+			}
+
+			if (cmpNombre != null) {
+				cmpNombre.Dispose ();
+				cmpNombre = null;
+			}
+
+			if (cmpPaterno != null) {
+				cmpPaterno.Dispose ();
+				cmpPaterno = null;
+			}
+
+			if (cmpMaterno != null) {
+				cmpMaterno.Dispose ();
+				cmpMaterno = null;
+			}
+
+			if (btnBuscar != null) {
+				btnBuscar.Dispose ();
+				btnBuscar = null;
+			}
+
+			if (cmpSolicitante != null) {
+				cmpSolicitante.Dispose ();
+				cmpSolicitante = null;
+			}
+
+			if (cmpTelCasa != null) {
+				cmpTelCasa.Dispose ();
+				cmpTelCasa = null;
+			}
+
+			if (cmpTelCel != null) {
+				cmpTelCel.Dispose ();
+				cmpTelCel = null;
+			}
+
+			if (cmpCorreo != null) {
+				cmpCorreo.Dispose ();
+				cmpCorreo = null;
+			}
+
+			if (cmpObservaciones != null) {
+				cmpObservaciones.Dispose ();
+				cmpObservaciones = null;
 			}
 		}
 	}

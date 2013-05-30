@@ -36,10 +36,14 @@ namespace Gestion2013iOS
 		public string usuarioAlta {get;set;}
 		public string usuarioEdicion {get;set;}
 
-		private static readonly string TasksURL = "http://148.229.75.81:3000/tareas.json";
+		string TasksURL = "";
 
 		public TasksService()
 		{
+		}
+
+		public void setUser(String appuser){
+			this.TasksURL = "http://148.229.75.81:3000/tareas.json?user="+ appuser;
 		}
 
 		public List<TasksService> All()
@@ -47,7 +51,7 @@ namespace Gestion2013iOS
 			return GetTasks();
 		}		
 
-		public static List <TasksService> GetTasks()
+		public List <TasksService> GetTasks()
 		{
 
 			WebClient client= new WebClient();

@@ -14,8 +14,10 @@ namespace Gestion2013iOS
 		ActionSheetDatePicker actionSheetDatePicker;
 		ActionSheetDatePicker actionSheetDatePicker1;
 		PickerDataModel pickerDataModel;
+		PickerDataModelPeople pickerDataModelPeople;
 		bool listo = false;
 		CLLocationManager iPhoneLocationManager = null;
+		PeopleService peopleService;
 		public NewTaskView () : base ("NewTaskView", null)
 		{
 			this.Title = "Nueva Tarea";
@@ -33,6 +35,9 @@ namespace Gestion2013iOS
 		{
 			base.ViewWillAppear (animated);
 
+			//Ocultamos los labels donde se muestran las coordenadas del dispositivo
+			this.lblLatitud.Hidden = true;
+			this.lblLongitud.Hidden = true;
 
 			//Declarar el Location Manager
 			iPhoneLocationManager = new CLLocationManager ();
@@ -148,11 +153,27 @@ namespace Gestion2013iOS
 
 			//Propiedades para el pickerView
 			actionSheetPicker = new ActionSheetPicker(this.View);
-			actionSheetPicker.Title = "Listado de Estados";
 			actionSheetPicker.Picker.Source = pickerDataModel;
 
 			pickerDataModel.ValueChanged += (sender, e) => {
 				this.lblPrioridad.Text = pickerDataModel.SelectedItem.ToString();
+			};
+
+			this.btnBuscar.TouchUpInside += (sender, e) => {
+				peopleService = new PeopleService();
+				peopleService.FindPeople(this.cmpNombre.Text, this.cmpPaterno.Text, this.cmpMaterno.Text);
+				pickerDataModelPeople = new PickerDataModelPeople ();
+				pickerDataModelPeople.Items = peopleService.All();
+
+				actionSheetPicker = new ActionSheetPicker(this.View);
+				actionSheetPicker.Picker.Source = pickerDataModelPeople;
+				actionSheetPicker.Show();
+			};
+
+			this.cmpSolicitante.AllowsEditingTextAttributes = false;
+
+			pickerDataModelPeople.ValueChanged += (sender, e) => {
+				this.cmpSolicitante.Text = pickerDataModelPeople.SelectedItem.ToString();
 			};
 		}
 
@@ -201,6 +222,74 @@ namespace Gestion2013iOS
 			/// default constructor
 			/// </summary>
 			public PickerDataModel ()
+			{
+			}
+
+			/// <summary>
+			/// Called by the picker to determine how many rows are in a given spinner item
+			/// </summary>
+			public override int GetRowsInComponent (UIPickerView picker, int component)
+			{
+				return items.Count;
+			}
+
+			/// <summary>
+			/// called by the picker to get the text for a particular row in a particular 
+			/// spinner item
+			/// </summary>
+			public override string GetTitle (UIPickerView picker, int row, int component){
+				return items[row].ToString();
+			}
+
+			/// <summary>
+			/// called by the picker to get the number of spinner items
+			/// </summary>
+			public override int GetComponentCount (UIPickerView picker)
+			{
+				return 1;
+			}
+
+			/// <summary>
+			/// called when a row is selected in the spinner
+			/// </summary>
+			public override void Selected (UIPickerView picker, int row, int component)
+			{
+				selectedIndex = row;
+				if (this.ValueChanged != null)
+				{
+					this.ValueChanged (this, new EventArgs ());
+				}	
+			}
+		}
+
+		/** Clase para manejar el picker **/
+		protected class PickerDataModelPeople : UIPickerViewModel 
+		{
+			public event EventHandler<EventArgs> ValueChanged;
+
+			/// <summary>
+			/// The items to show up in the picker
+			/// </summary>
+			public List<PeopleService> Items
+			{
+				get { return items; }
+				set { items = value; }
+			}
+			List<PeopleService> items = new List<PeopleService>();
+
+			/// <summary>
+			/// The current selected item
+			/// </summary>
+			public PeopleService SelectedItem
+			{
+				get { return items[selectedIndex]; }
+			}
+			protected int selectedIndex = 0;
+
+			/// <summary>
+			/// default constructor
+			/// </summary>
+			public PickerDataModelPeople ()
 			{
 			}
 
