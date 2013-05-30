@@ -10,6 +10,7 @@ namespace Gestion2013iOS
 		TasksService task;
 		DetailTaskView detailTaskView;
 		DetailService ds;
+		NewDetailTaskView newDetailTaskView;
 		public TaskDetailView () : base ("TaskDetailView", null)
 		{
 			this.Title = "Descripcion de tareas";
@@ -52,8 +53,12 @@ namespace Gestion2013iOS
 
 			this.btnVerDetalle.TouchUpInside += (sender, e) => {
 				detailTaskView = new DetailTaskView();
-				detailTaskView.setTitulo(this.task.Titulo);
 				this.NavigationController.PushViewController(detailTaskView, true);
+			};
+
+			this.btnAgregarDetalle.TouchUpInside += (sender, e) => {
+				newDetailTaskView = new NewDetailTaskView();
+				this.NavigationController.PushViewController(newDetailTaskView, true);
 			};
 		}
 	}
