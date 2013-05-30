@@ -8,6 +8,8 @@ namespace Gestion2013iOS
 	public partial class TaskDetailView : UIViewController
 	{
 		TasksService task;
+		DetailTaskView detailTaskView;
+		DetailService ds;
 		public TaskDetailView () : base ("TaskDetailView", null)
 		{
 			this.Title = "Descripcion de tareas";
@@ -47,6 +49,12 @@ namespace Gestion2013iOS
 			this.lblFecCompromiso.Text = this.task.fechaCompromiso;
 			this.lblFecTermino.Text = this.task.fechaTermino;
 			this.lblFecContacto.Text = this.task.fechaContacto;
+
+			this.btnVerDetalle.TouchUpInside += (sender, e) => {
+				detailTaskView = new DetailTaskView();
+				detailTaskView.setTitulo(this.task.Titulo);
+				this.NavigationController.PushViewController(detailTaskView, true);
+			};
 		}
 	}
 }

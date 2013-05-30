@@ -21,6 +21,15 @@ namespace Gestion2013iOS
 		MonoTouch.UIKit.UIButton btnFechaCompr { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnCategoria { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnResponsable { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel lblCategoria { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel lblResponsable { get; set; }
 
 		[Outlet]
@@ -89,6 +98,21 @@ namespace Gestion2013iOS
 			if (btnFechaCompr != null) {
 				btnFechaCompr.Dispose ();
 				btnFechaCompr = null;
+			}
+
+			if (btnCategoria != null) {
+				btnCategoria.Dispose ();
+				btnCategoria = null;
+			}
+
+			if (btnResponsable != null) {
+				btnResponsable.Dispose ();
+				btnResponsable = null;
+			}
+
+			if (lblCategoria != null) {
+				lblCategoria.Dispose ();
+				lblCategoria = null;
 			}
 
 			if (lblResponsable != null) {

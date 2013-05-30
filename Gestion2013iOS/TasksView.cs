@@ -13,6 +13,7 @@ namespace Gestion2013iOS
 		NewTaskView newTaskView;
 		UIToolbar toolbar;
 		TasksService ts;
+		public static string tareaId;
 		public TasksView () : base ("TasksView", null)
 		{
 			this.Title = "Listado de tareas";
@@ -31,7 +32,7 @@ namespace Gestion2013iOS
 			base.ViewDidLoad ();
 
 			ts = new TasksService ();
-			ts.setUser (MainView.user);
+			ts.setUser(MainView.user);
 
 			//Escondemos el boton de regreso hacia la pagina de inicio
 			this.NavigationItem.HidesBackButton = true;
@@ -58,12 +59,6 @@ namespace Gestion2013iOS
 			//posionamiento del boton
 			this.NavigationItem.LeftBarButtonItem = cerrarSesion;
 
-
-			/*List<String> tableItems = new List<String>();
-			tableItems.Add("Tarea 1");
-			tableItems.Add("Tarea 2");
-			tableItems.Add("Tarea 3");
-			this.tblTasks.Source = new TasksTableSource(tableItems, this);*/
 			List<TasksService> tableItems = ts.All ();
 			this.tblTasks.Source = new TasksTableSource (tableItems,this);
 			headerView.BackgroundColor = UIColor.Clear;
@@ -206,6 +201,7 @@ namespace Gestion2013iOS
 			{
 				taskDetailView = new TaskDetailView ();
 				taskDetailView.setTask (tableItems[indexPath.Row]);
+				TasksView.tareaId = tableItems[indexPath.Row].idTarea;
 				controller.NavigationController.PushViewController (taskDetailView, true);
 			}	
 			

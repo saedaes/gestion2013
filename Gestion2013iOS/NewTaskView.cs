@@ -15,9 +15,11 @@ namespace Gestion2013iOS
 		ActionSheetDatePicker actionSheetDatePicker1;
 		PickerDataModel pickerDataModel;
 		PickerDataModelPeople pickerDataModelPeople;
+		PickerDataModelCategories pickerDataModelCategories;
 		bool listo = false;
 		CLLocationManager iPhoneLocationManager = null;
 		PeopleService peopleService;
+		CategoryService categoryService;
 		public NewTaskView () : base ("NewTaskView", null)
 		{
 			this.Title = "Nueva Tarea";
@@ -102,8 +104,32 @@ namespace Gestion2013iOS
 			this.cmpDescripcion.Layer.ShadowColor = UIColor.Black.CGColor;
 			this.cmpDescripcion.Layer.CornerRadius = 8;
 
-			
+
+			//Opciones para la lista de prioridades
+			List<String> opciones1 = new List<String>();
+			opciones1.Add ("Alta");
+			opciones1.Add ("Normal");
+			opciones1.Add ("Baja");
+
+			//Declaramos el datamodel para las categorias
+			pickerDataModelCategories = new PickerDataModelCategories ();
+			//Declaramos el datamodel para el picker de prioridades
+			pickerDataModel = new PickerDataModel ();
+			//Declaramos el datamodel para el picker de buisqueda de personas
+			pickerDataModelPeople = new PickerDataModelPeople ();
+			//Declaramos el actionsheet donde se mostrara el picker
+			actionSheetPicker = new ActionSheetPicker(this.View);
+
+			this.btnCategoria.TouchUpInside += (sender, e) => {
+				categoryService = new CategoryService();
+				pickerDataModelCategories.Items = categoryService.All();//llenamos el picker view con la respuesta del servicio de categorias
+				actionSheetPicker.Picker.Source = pickerDataModelCategories;
+				actionSheetPicker.Show();
+			};
+
 			this.btnPrioridad.TouchUpInside += (sender, e) => {
+				pickerDataModel.Items = opciones1;//llenamos el pickerview con la lista de prioridades declarada mas arriba
+				actionSheetPicker.Picker.Source = pickerDataModel;
 				actionSheetPicker.Show();
 			};
 
@@ -142,39 +168,35 @@ namespace Gestion2013iOS
 				this.lblFechaCompr.Text = fecha3;
 			};
 
-			//Opciones para la lista de prioridades
-			List<String> opciones1 = new List<String>();
-			opciones1.Add ("Alta");
-			opciones1.Add ("Normal");
-			opciones1.Add ("Baja");
-
-			pickerDataModel = new PickerDataModel ();
-			pickerDataModel.Items = opciones1;
-
-			//Propiedades para el pickerView
-			actionSheetPicker = new ActionSheetPicker(this.View);
-			actionSheetPicker.Picker.Source = pickerDataModel;
+			pickerDataModelCategories.ValueChanged += (sender, e) => {
+				this.lblCategoria.Text = pickerDataModelCategories.SelectedItem.ToString();
+			};
 
 			pickerDataModel.ValueChanged += (sender, e) => {
 				this.lblPrioridad.Text = pickerDataModel.SelectedItem.ToString();
 			};
 
+			pickerDataModelPeople.ValueChanged += (sender, e) => {
+				this.cmpSolicitante.Text = pickerDataModelPeople.SelectedItem.ToString();
+			};
+
 			this.btnBuscar.TouchUpInside += (sender, e) => {
 				peopleService = new PeopleService();
 				peopleService.FindPeople(this.cmpNombre.Text, this.cmpPaterno.Text, this.cmpMaterno.Text);
-				pickerDataModelPeople = new PickerDataModelPeople ();
-				pickerDataModelPeople.Items = peopleService.All();
 
+				pickerDataModelPeople.Items = peopleService.All();
 				actionSheetPicker = new ActionSheetPicker(this.View);
 				actionSheetPicker.Picker.Source = pickerDataModelPeople;
 				actionSheetPicker.Show();
 			};
 
-			this.cmpSolicitante.AllowsEditingTextAttributes = false;
+			this.cmpSolicitante.Enabled = false;
 
-			pickerDataModelPeople.ValueChanged += (sender, e) => {
-				this.cmpSolicitante.Text = pickerDataModelPeople.SelectedItem.ToString();
-			};
+			//Se establece un borde para el textarea de las observaciones
+			this.cmpObservaciones.Layer.BorderWidth = 1.0f;
+			this.cmpObservaciones.Layer.BorderColor = UIColor.Gray.CGColor;
+			this.cmpObservaciones.Layer.ShadowColor = UIColor.Black.CGColor;
+			this.cmpObservaciones.Layer.CornerRadius = 8;
 		}
 
 		public void UpdateLocation (CLLocation newLocation)
@@ -194,7 +216,7 @@ namespace Gestion2013iOS
 			base.TouchesEnded (touches, evt);
 		}
 
-		/** Clase para manejar el picker **/
+		/** Clase para manejar el picker de prioridades**/
 		protected class PickerDataModel : UIPickerViewModel 
 		{
 			public event EventHandler<EventArgs> ValueChanged;
@@ -262,7 +284,7 @@ namespace Gestion2013iOS
 			}
 		}
 
-		/** Clase para manejar el picker **/
+		/** Clase para manejar el picker de busqueda de personas **/
 		protected class PickerDataModelPeople : UIPickerViewModel 
 		{
 			public event EventHandler<EventArgs> ValueChanged;
@@ -290,6 +312,74 @@ namespace Gestion2013iOS
 			/// default constructor
 			/// </summary>
 			public PickerDataModelPeople ()
+			{
+			}
+
+			/// <summary>
+			/// Called by the picker to determine how many rows are in a given spinner item
+			/// </summary>
+			public override int GetRowsInComponent (UIPickerView picker, int component)
+			{
+				return items.Count;
+			}
+
+			/// <summary>
+			/// called by the picker to get the text for a particular row in a particular 
+			/// spinner item
+			/// </summary>
+			public override string GetTitle (UIPickerView picker, int row, int component){
+				return items[row].ToString();
+			}
+
+			/// <summary>
+			/// called by the picker to get the number of spinner items
+			/// </summary>
+			public override int GetComponentCount (UIPickerView picker)
+			{
+				return 1;
+			}
+
+			/// <summary>
+			/// called when a row is selected in the spinner
+			/// </summary>
+			public override void Selected (UIPickerView picker, int row, int component)
+			{
+				selectedIndex = row;
+				if (this.ValueChanged != null)
+				{
+					this.ValueChanged (this, new EventArgs ());
+				}	
+			}
+		}
+
+		/** Clase para manejar el picker de categorias **/
+		protected class PickerDataModelCategories : UIPickerViewModel 
+		{
+			public event EventHandler<EventArgs> ValueChanged;
+
+			/// <summary>
+			/// The items to show up in the picker
+			/// </summary>
+			public List<CategoryService> Items
+			{
+				get { return items; }
+				set { items = value; }
+			}
+			List<CategoryService> items = new List<CategoryService>();
+
+			/// <summary>
+			/// The current selected item
+			/// </summary>
+			public CategoryService SelectedItem
+			{
+				get { return items[selectedIndex]; }
+			}
+			protected int selectedIndex = 0;
+
+			/// <summary>
+			/// default constructor
+			/// </summary>
+			public PickerDataModelCategories ()
 			{
 			}
 

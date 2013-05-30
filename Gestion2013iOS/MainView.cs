@@ -11,6 +11,7 @@ namespace Gestion2013iOS
 	{
 		//Declaramos el usuario y la contraseña como estaticos para poder acceder a ellos. 
 		public static string user;
+		public static string password;
 
 		TasksView tasksView;
 
@@ -34,7 +35,7 @@ namespace Gestion2013iOS
 
 			this.btnIngresar.TouchUpInside += (sender, e) => {
 				user = this.cmpUsuario.Text;
-				String password = this.cmpContrasena.Text;
+				password = this.cmpContrasena.Text;
 
 				if(user.Equals("")&& password.Equals("")){
 					UIAlertView alert = new UIAlertView(){
@@ -43,8 +44,25 @@ namespace Gestion2013iOS
 					alert.AddButton("Aceptar");
 					alert.Show();
 				}else{
-					tasksView = new TasksView();
-					this.NavigationController.PushViewController(tasksView, true);
+					LoginService loginService = new LoginService();
+					String respuesta = loginService.SetUserAndPassword(user, password);
+					if(respuesta.Equals("0")){
+						UIAlertView alert = new UIAlertView(){
+							Title = "ERROR", Message = "Datos incorrectos"
+						};
+						alert.AddButton("Aceptar");
+						alert.Show();
+					}else if(respuesta.Equals("1")){
+						tasksView = new TasksView();
+						this.NavigationController.PushViewController(tasksView, true);
+					}
+					else{
+						UIAlertView alert = new UIAlertView(){
+							Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
+						};
+						alert.AddButton("Aceptar");
+						alert.Show();
+					}
 				}
 			};
 
