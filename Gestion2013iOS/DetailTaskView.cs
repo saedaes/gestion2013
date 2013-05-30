@@ -97,15 +97,9 @@ namespace Gestion2013iOS
 
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 			{
-				/*taskDetailView = new TaskDetailView ();
-				taskDetailView.setTask (tableItems[indexPath.Row]);
-				controller.NavigationController.PushViewController (taskDetailView, true);*/
+
 			}	
 
-			/*public override void AccessoryButtonTapped (UITableView tableView, NSIndexPath indexPath)
-			{
-
-			}*/
 		}
 	}
 }

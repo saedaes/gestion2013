@@ -157,14 +157,14 @@ namespace Gestion2013iOS
 			actionSheetDatePicker.Picker.ValueChanged += (s, e) => {
 				DateTime fecha1 = (s as UIDatePicker).Date;
 				DateTime fecha2 =fecha1.AddDays(-1);
-				String fecha3 = String.Format("{0:dd/MM/yyyy}",fecha2);
+				String fecha3 = String.Format("{0:yyyy-MM-dd}",fecha2);
 				this.lblFechaCont.Text = fecha3;
 			};
 
 			actionSheetDatePicker1.Picker.ValueChanged += (s, e) => {
 				DateTime fecha1 = (s as UIDatePicker).Date;
 				DateTime fecha2 =fecha1.AddDays(-1);
-				String fecha3 = String.Format("{0:dd/MM/yyyy}",fecha2);
+				String fecha3 = String.Format("{0:yyyy-MM-dd}",fecha2);
 				this.lblFechaCompr.Text = fecha3;
 			};
 

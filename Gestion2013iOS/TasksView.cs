@@ -165,6 +165,7 @@ namespace Gestion2013iOS
 			string cellIdentifier = "TableCell";
 			TasksView controller;
 			TaskDetailView taskDetailView;
+			EditTaskView editTaskView;
 			public TasksTableSource (List<TasksService> items,TasksView controller ) 
 			{
 				tableItems = items;
@@ -215,16 +216,10 @@ namespace Gestion2013iOS
 				alert.AddButton ("Cancelar");
 				alert.Clicked += (s, o) => {
 					if(o.ButtonIndex==0){
-						UIAlertView alert1 = new UIAlertView(){
-							Title = tableItems[indexPath.Row].ToString() , Message = "Prueba Edicion"
-						};
-						alert1.AddButton ("Aceptar");
+						editTaskView = new EditTaskView();
+						editTaskView.setTask(tableItems[indexPath.Row]);
+						controller.NavigationController.PushViewController(editTaskView, true);
 					}else if(o.ButtonIndex == 1){
-						UIAlertView alert2 = new UIAlertView(){
-							Title = tableItems[indexPath.Row].ToString() , Message = "¿Estás seguro?"
-						};
-						alert2.AddButton ("Aceptar");
-						alert2.AddButton ("Cancelar");
 					}
 				};
 				alert.Show();

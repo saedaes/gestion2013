@@ -9,6 +9,7 @@ namespace Gestion2013iOS
 	{
 		public NewDetailTaskView () : base ("NewDetailTaskView", null)
 		{
+			this.Title = "Nuevo detalle";
 		}
 
 		public override void DidReceiveMemoryWarning ()
