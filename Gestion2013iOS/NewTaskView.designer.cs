@@ -82,6 +82,9 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UITextView cmpObservaciones { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel lblObservaciones { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -203,6 +206,11 @@ namespace Gestion2013iOS
 			if (cmpObservaciones != null) {
 				cmpObservaciones.Dispose ();
 				cmpObservaciones = null;
+			}
+
+			if (lblObservaciones != null) {
+				lblObservaciones.Dispose ();
+				lblObservaciones = null;
 			}
 		}
 	}

@@ -20,6 +20,7 @@ namespace Gestion2013iOS
 		CLLocationManager iPhoneLocationManager = null;
 		PeopleService peopleService;
 		CategoryService categoryService;
+		NewTaskService newTaskService;
 		public NewTaskView () : base ("NewTaskView", null)
 		{
 			this.Title = "Nueva Tarea";
@@ -36,6 +37,10 @@ namespace Gestion2013iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+
+			//Ocultamos el campo de observaciones, ya que por lo visto no se almacena en ningun lado, esperamos respuesta
+			this.cmpObservaciones.Hidden = true;
+			this.lblObservaciones.Hidden = true;
 
 			//Ocultamos los labels donde se muestran las coordenadas del dispositivo
 			this.lblLatitud.Hidden = true;
@@ -168,7 +173,9 @@ namespace Gestion2013iOS
 				this.lblFechaCompr.Text = fecha3;
 			};
 
+			String categoria="";
 			pickerDataModelCategories.ValueChanged += (sender, e) => {
+				categoria = pickerDataModelCategories.SelectedItem.idCategoria;
 				this.lblCategoria.Text = pickerDataModelCategories.SelectedItem.ToString();
 			};
 
@@ -176,7 +183,9 @@ namespace Gestion2013iOS
 				this.lblPrioridad.Text = pickerDataModel.SelectedItem.ToString();
 			};
 
+			String idPadron ="";
 			pickerDataModelPeople.ValueChanged += (sender, e) => {
+				idPadron = pickerDataModelPeople.SelectedItem.idPadron;
 				this.cmpSolicitante.Text = pickerDataModelPeople.SelectedItem.ToString();
 			};
 
@@ -191,6 +200,31 @@ namespace Gestion2013iOS
 			};
 
 			this.cmpSolicitante.Enabled = false;
+
+			//Se crea el boton para enviar la informacion al servidor
+			this.btnGuardar.TouchUpInside += (sender, e) => {
+				newTaskService = new NewTaskService();
+				String respuesta = newTaskService.SetData(cmpTitulo.Text, cmpDescripcion.Text,categoria,"50","1",lblFechaCont.Text,lblFechaCompr.Text,idPadron,MainView.user
+				                       ,cmpTelCasa.Text,cmpTelCel.Text,cmpCorreo.Text,lblLatitud.Text,lblLongitud.Text);
+				if (respuesta.Equals("0")){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}else if(respuesta.Equals("1")){
+					UIAlertView alert = new UIAlertView(){
+						Title = "BIEN", Message = "La tarea ha sido guardada correctamente"
+					};
+					alert.AddButton("Aceptar");
+					alert.Clicked += (s, o) => {
+						if(o.ButtonIndex==0){
+							NavigationController.PopViewControllerAnimated(true);
+						}
+					};
+					alert.Show();
+				}
+			};
 
 			//Se establece un borde para el textarea de las observaciones
 			this.cmpObservaciones.Layer.BorderWidth = 1.0f;

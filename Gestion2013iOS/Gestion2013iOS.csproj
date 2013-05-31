@@ -133,6 +133,7 @@
     <Compile Include="EditTaskView.designer.cs">
       <DependentUpon>EditTaskView.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewTaskService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

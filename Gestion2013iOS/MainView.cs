@@ -33,38 +33,46 @@ namespace Gestion2013iOS
 			base.ViewDidLoad ();
 			this.cmpContrasena.SecureTextEntry = true;
 
-			this.btnIngresar.TouchUpInside += (sender, e) => {
-				user = this.cmpUsuario.Text;
-				password = this.cmpContrasena.Text;
+			try{
+				this.btnIngresar.TouchUpInside += (sender, e) => {
+					user = this.cmpUsuario.Text;
+					password = this.cmpContrasena.Text;
 
-				if(user.Equals("")&& password.Equals("")){
-					UIAlertView alert = new UIAlertView(){
-						Title = "ERROR", Message = "Ingresa correctamente los datos"
-					};
-					alert.AddButton("Aceptar");
-					alert.Show();
-				}else{
-					LoginService loginService = new LoginService();
-					String respuesta = loginService.SetUserAndPassword(user, password);
-					if(respuesta.Equals("0")){
+					if(user.Equals("")&& password.Equals("")){
 						UIAlertView alert = new UIAlertView(){
-							Title = "ERROR", Message = "Datos incorrectos"
+							Title = "ERROR", Message = "Ingresa correctamente los datos"
 						};
 						alert.AddButton("Aceptar");
 						alert.Show();
-					}else if(respuesta.Equals("1")){
-						tasksView = new TasksView();
-						this.NavigationController.PushViewController(tasksView, true);
+					}else{
+						LoginService loginService = new LoginService();
+						String respuesta = loginService.SetUserAndPassword(user, password);
+						if(respuesta.Equals("0")){
+							UIAlertView alert = new UIAlertView(){
+								Title = "ERROR", Message = "Datos incorrectos"
+							};
+							alert.AddButton("Aceptar");
+							alert.Show();
+						}else if(respuesta.Equals("1")){
+							tasksView = new TasksView();
+							this.NavigationController.PushViewController(tasksView, true);
+						}
+						else{
+							UIAlertView alert = new UIAlertView(){
+								Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
+							};
+							alert.AddButton("Aceptar");
+							alert.Show();
+						}
 					}
-					else{
-						UIAlertView alert = new UIAlertView(){
-							Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
-						};
-						alert.AddButton("Aceptar");
-						alert.Show();
-					}
-				}
-			};
+				};
+			}catch(System.Net.WebException){
+				UIAlertView alert = new UIAlertView(){
+					Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
+				};
+				alert.AddButton("Aceptar");
+				alert.Show();
+			}
 
 			this.cmpContrasena.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 			this.cmpUsuario.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
@@ -89,4 +97,3 @@ namespace Gestion2013iOS
 		}
 	}
 }
-

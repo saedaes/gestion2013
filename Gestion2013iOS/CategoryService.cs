@@ -10,6 +10,7 @@ namespace Gestion2013iOS
 	public	class CategoryService
 	{
 		public string Categoria {get;set;}
+		public string idCategoria {get;set;}
 
 		string CategoryURL =  "http://148.229.75.81:3000/categorias.json";
 
@@ -44,7 +45,7 @@ namespace Gestion2013iOS
 		{
 			CategoryService category = new CategoryService();
 			category.Categoria = jObject["Categoria"].ToString();
-
+			category.idCategoria = jObject["idCategoria"].ToString();
 			return category;
 		}
 

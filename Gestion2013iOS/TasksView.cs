@@ -59,12 +59,20 @@ namespace Gestion2013iOS
 			//posionamiento del boton
 			this.NavigationItem.LeftBarButtonItem = cerrarSesion;
 
+			try{
 			List<TasksService> tableItems = ts.All ();
 			this.tblTasks.Source = new TasksTableSource (tableItems,this);
 			headerView.BackgroundColor = UIColor.Clear;
 			tblTasks.TableHeaderView = headerView;
 			Add(tblTasks);
-
+			}catch(System.Net.WebException){
+				UIAlertView alert = new UIAlertView(){
+					Title = "ERROR", Message = "Error del Servidor, no se pudo establecer conexión"
+				};
+				alert.AddButton("Aceptar");
+				alert.Show();
+				this.headerView.Hidden = true;
+			}
 
 			//Boton de nueva tarea
 			btnNuevo.TouchUpInside += (sender, e) => {
