@@ -44,6 +44,8 @@ namespace Gestion2013iOS
 			string cellIdentifier = "TableCell";
 			DetailTaskView controller;
 			TaskDetailView taskDetailView;
+			DeleteDetailService deleteDetailService;
+			DetailService ds = new DetailService ();
 			public DetailTableSource (List<DetailService> items, DetailTaskView controller ) 
 			{
 				tableItems = items;
@@ -97,9 +99,73 @@ namespace Gestion2013iOS
 
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 			{
-
+				UIAlertView alert = new UIAlertView(){
+					Title = "¿BORRAR?", Message = "¿Desea borrar el detalle?"
+				};
+				alert.AddButton("Aceptar");
+				alert.AddButton("Cancelar");
+				alert.Clicked += (s, o) => {
+					if (o.ButtonIndex == 0) {
+						ds = tableItems [indexPath.Section];
+						Confirmation();
+					}
+				};
+				alert.Show();
 			}	
 
+			public void Confirmation(){
+				UIAlertView alert = new UIAlertView(){
+					Title = "¿ESTA SEGURO?", Message = "¿Esta seguro de borrar el detalle?"
+				};
+				alert.AddButton("Aceptar");
+				alert.AddButton("Cancelar");
+				alert.Clicked += (s, o) => {
+					try{
+					if(o.ButtonIndex==0){
+						deleteDetailService = new DeleteDetailService();
+						String respuesta = deleteDetailService.SetDetail(ds.idTareaDetalle);
+						if(respuesta.Equals("1")){
+							SuccesConfirmation();
+						} else if(respuesta.Equals("0")){
+							ErrorConfirmation();
+						}
+					}
+					}catch(System.Net.WebException){
+						ServerError();
+					}
+				};
+				alert.Show();
+			}
+
+			public void SuccesConfirmation(){
+				UIAlertView alert = new UIAlertView(){
+					Title = "Correcto", Message = "Detalle Borrado Correctamente"
+				};
+				alert.AddButton("Aceptar");
+				alert.Clicked += (s, o) => {
+					if (o.ButtonIndex == 0) {
+						controller.NavigationController.PopViewControllerAnimated(true);
+					}
+				};
+				alert.Show();
+
+			}
+
+			public void ErrorConfirmation(){
+				UIAlertView alert = new UIAlertView(){
+					Title = "Error", Message = "El detalle no pudo ser borrado, intentelo de nuevo"
+				};
+				alert.AddButton("Aceptar");
+				alert.Show();
+			}
+
+			public void ServerError(){
+				UIAlertView alert = new UIAlertView(){
+					Title = "Error", Message = "Error de conexión, no se pudo conectar con el servidor, intentelo de nuevo"
+				};
+				alert.AddButton("Aceptar");
+				alert.Show();
+			}
 		}
 	}
 }

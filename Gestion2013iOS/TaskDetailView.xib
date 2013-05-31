@@ -952,7 +952,7 @@
 						<reference key="IBUIFontDescription" ref="204652707"/>
 						<reference key="IBUIFont" ref="75923137"/>
 					</object>
-					<object class="IBUIButton" id="834015599">
+					<object class="IBUIButton" id="841156416">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{317, 897}, {135, 44}}</string>
@@ -1170,7 +1170,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">btnFinalizar</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="834015599"/>
+						<reference key="destination" ref="841156416"/>
 					</object>
 					<int key="connectionID">65</int>
 				</object>
@@ -1238,7 +1238,7 @@
 							<reference ref="593864782"/>
 							<reference ref="626801819"/>
 							<reference ref="83137798"/>
-							<reference ref="834015599"/>
+							<reference ref="841156416"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1444,7 +1444,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">64</int>
-						<reference key="object" ref="834015599"/>
+						<reference key="object" ref="841156416"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
 				</array>
@@ -1501,7 +1501,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">65</int>
+			<int key="maxID">66</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

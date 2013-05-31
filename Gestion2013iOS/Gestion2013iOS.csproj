@@ -141,6 +141,8 @@
     <Compile Include="ResponsibleService.cs" />
     <Compile Include="EditTaskService.cs" />
     <Compile Include="ChangeStatusService.cs" />
+    <Compile Include="LogoutService.cs" />
+    <Compile Include="DeleteDetailService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

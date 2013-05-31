@@ -13,6 +13,7 @@ namespace Gestion2013iOS
 		NewTaskView newTaskView;
 		UIToolbar toolbar;
 		TasksService ts;
+		//LogoutService lg;
 		public static string tareaId;
 		public TasksView () : base ("TasksView", null)
 		{
@@ -50,6 +51,8 @@ namespace Gestion2013iOS
 				alert.AddButton("Cancelar");
 				alert.Clicked += (s, o) => {
 					if(o.ButtonIndex==0){
+						//lg = new LogoutService();
+						//lg.Logout();
 						NavigationController.PopViewControllerAnimated(true);
 					}
 				};
