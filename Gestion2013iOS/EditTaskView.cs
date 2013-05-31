@@ -40,6 +40,11 @@ namespace Gestion2013iOS
 			this.lblPrioridad.Text = this.task.idPrioridad;
 			this.lblFechaCont.Text = this.task.fechaContacto;
 			this.lblFechaCompr.Text = this.task.fechaCompromiso;
+
+			this.cmpDescripcion.Layer.BorderWidth = 1.0f;
+			this.cmpDescripcion.Layer.BorderColor = UIColor.Gray.CGColor;
+			this.cmpDescripcion.Layer.ShadowColor = UIColor.Black.CGColor;
+			this.cmpDescripcion.Layer.CornerRadius = 8;
 		}
 	}
 }

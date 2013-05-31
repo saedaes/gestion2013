@@ -155,6 +155,7 @@ namespace Gestion2013iOS
 			TasksView controller;
 			TaskDetailView taskDetailView;
 			EditTaskView editTaskView;
+			DeleteService deleteService;
 			public TasksTableSource (List<TasksService> items,TasksView controller ) 
 			{
 				tableItems = items;
@@ -216,8 +217,48 @@ namespace Gestion2013iOS
 			}
 
 			public void delete(String tareaId){
+					UIAlertView alert = new UIAlertView(){
+						Title = "¿BORRAR?", Message = "¿Esta seguro que desea borrar la tarea?"
+					};
+					alert.AddButton("Aceptar");
+					alert.AddButton ("Cancelar");
+					alert.Clicked += (s, o) => {
+						try{
+							if(o.ButtonIndex==0){
+								deleteService = new DeleteService();
+								String respuesta = deleteService.SetTask(tareaId);
+								if(respuesta.Equals("1")){
+									SuccesConfirmation();
+								} else if(respuesta.Equals("0")){
+									ErrorConfirmation();
+								}
+							}
+						}catch(System.Net.WebException){
+							ServerError ();
+						}
+					};
+					alert.Show();
+			}
+
+			public void SuccesConfirmation(){
 				UIAlertView alert = new UIAlertView(){
-					Title = "¿BORRAR?", Message = "¿Esta seguro que desea borrar la tarea?"
+					Title = "Correcto", Message = "Tarea Borrada correctamente"
+				};
+				alert.AddButton("Aceptar");
+				alert.Show();
+			}
+
+			public void ErrorConfirmation(){
+				UIAlertView alert = new UIAlertView(){
+					Title = "Error", Message = "La tarea no pudo ser borrad, intentelo de nuevo"
+				};
+				alert.AddButton("Aceptar");
+				alert.Show();
+			}
+
+			public void ServerError(){
+				UIAlertView alert = new UIAlertView(){
+					Title = "Error", Message = "Error de conexión, no se pudo conectar con el servidor, intentelo de nuevo"
 				};
 				alert.AddButton("Aceptar");
 				alert.Show();

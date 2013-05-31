@@ -9,7 +9,7 @@ namespace Gestion2013iOS
 	{
 		TasksService task;
 		DetailTaskView detailTaskView;
-		DetailService ds;
+		//DetailService ds;
 		NewDetailTaskView newDetailTaskView;
 		public TaskDetailView () : base ("TaskDetailView", null)
 		{
@@ -33,7 +33,7 @@ namespace Gestion2013iOS
 			base.ViewDidLoad ();
 
 			this.lblTitulo.Text = this.task.Titulo;
-			this.lblEncargado.Text = this.task.Encargado;
+			this.lblEncargado.Text = this.task.idResponsable;
 			this.lblDescripcion.Text = this.task.Descripcion;
 			this.lblNombreSolic.Text = this.task.nombreSolicitante;
 			this.lblDireccionSolic.Text = this.task.direccionSolicitante;
