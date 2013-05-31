@@ -70,6 +70,9 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton btnAgregarDetalle { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnFinalizar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -171,6 +174,11 @@ namespace Gestion2013iOS
 			if (btnAgregarDetalle != null) {
 				btnAgregarDetalle.Dispose ();
 				btnAgregarDetalle = null;
+			}
+
+			if (btnFinalizar != null) {
+				btnFinalizar.Dispose ();
+				btnFinalizar = null;
 			}
 		}
 	}

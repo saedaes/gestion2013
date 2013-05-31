@@ -70,6 +70,9 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UITextField cmpCorreo { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnGuardar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -171,6 +174,11 @@ namespace Gestion2013iOS
 			if (cmpCorreo != null) {
 				cmpCorreo.Dispose ();
 				cmpCorreo = null;
+			}
+
+			if (btnGuardar != null) {
+				btnGuardar.Dispose ();
+				btnGuardar = null;
 			}
 		}
 	}

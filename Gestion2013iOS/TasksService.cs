@@ -30,7 +30,7 @@ namespace Gestion2013iOS
 		public string CveElector {get;set;}
 		public string idTarea {get;set;}
 		public string nombreSolicitante {get;set;}
-		//public string otraCategoria {get;set;}
+		public string idSolicitante {get;set;}
 		public string telCasaSolicitante {get;set;}
 		public string telCelularSolicitante {get;set;}
 		public string usuarioAlta {get;set;}
@@ -99,7 +99,7 @@ namespace Gestion2013iOS
 			task.CveElector = jObject["CveElector"].ToString();
 			task.idTarea = jObject["idTarea"].ToString();
 			task.nombreSolicitante = jObject["nombreSolicitante"].ToString();
-			//task.otraCategoria = jObject["otraCategoria"].ToString();
+			task.idSolicitante = jObject["idSolicitante"].ToString();
 			task.telCasaSolicitante = jObject["telCasaSolicitante"].ToString();
 			task.telCelularSolicitante = jObject["telCelularSolicitante"].ToString();
 			task.usuarioAlta = jObject["usuarioAlta"].ToString();

@@ -13,6 +13,7 @@ namespace Gestion2013iOS
 		ActionSheetPicker actionSheetPicker;
 		ActionSheetDatePicker actionSheetDatePicker;
 		ActionSheetDatePicker actionSheetDatePicker1;
+		PickerDataModelResponsibles pickerDataModelResponsibles;
 		PickerDataModel pickerDataModel;
 		PickerDataModelPeople pickerDataModelPeople;
 		PickerDataModelCategories pickerDataModelCategories;
@@ -21,6 +22,8 @@ namespace Gestion2013iOS
 		PeopleService peopleService;
 		CategoryService categoryService;
 		NewTaskService newTaskService;
+		PrioritiesService prioritiesService;
+		ResponsibleService responsibleService;
 		public NewTaskView () : base ("NewTaskView", null)
 		{
 			this.Title = "Nueva Tarea";
@@ -109,13 +112,8 @@ namespace Gestion2013iOS
 			this.cmpDescripcion.Layer.ShadowColor = UIColor.Black.CGColor;
 			this.cmpDescripcion.Layer.CornerRadius = 8;
 
-
-			//Opciones para la lista de prioridades
-			List<String> opciones1 = new List<String>();
-			opciones1.Add ("Alta");
-			opciones1.Add ("Normal");
-			opciones1.Add ("Baja");
-
+			//Declaramos el datamodel para los responsables
+			pickerDataModelResponsibles = new PickerDataModelResponsibles ();
 			//Declaramos el datamodel para las categorias
 			pickerDataModelCategories = new PickerDataModelCategories ();
 			//Declaramos el datamodel para el picker de prioridades
@@ -125,6 +123,13 @@ namespace Gestion2013iOS
 			//Declaramos el actionsheet donde se mostrara el picker
 			actionSheetPicker = new ActionSheetPicker(this.View);
 
+			this.btnResponsable.TouchUpInside += (sender, e) => {
+				responsibleService = new ResponsibleService();
+				pickerDataModelResponsibles.Items = responsibleService.All();
+				actionSheetPicker.Picker.Source = pickerDataModelResponsibles;
+				actionSheetPicker.Show();
+			};
+
 			this.btnCategoria.TouchUpInside += (sender, e) => {
 				categoryService = new CategoryService();
 				pickerDataModelCategories.Items = categoryService.All();//llenamos el picker view con la respuesta del servicio de categorias
@@ -133,7 +138,8 @@ namespace Gestion2013iOS
 			};
 
 			this.btnPrioridad.TouchUpInside += (sender, e) => {
-				pickerDataModel.Items = opciones1;//llenamos el pickerview con la lista de prioridades declarada mas arriba
+				prioritiesService = new PrioritiesService();
+				pickerDataModel.Items = prioritiesService.All();//llenamos el pickerview con la lista de prioridades 
 				actionSheetPicker.Picker.Source = pickerDataModel;
 				actionSheetPicker.Show();
 			};
@@ -179,8 +185,16 @@ namespace Gestion2013iOS
 				this.lblCategoria.Text = pickerDataModelCategories.SelectedItem.ToString();
 			};
 
+			String prioridad = "";
 			pickerDataModel.ValueChanged += (sender, e) => {
+				prioridad = pickerDataModel.SelectedItem.idPrioridad;
 				this.lblPrioridad.Text = pickerDataModel.SelectedItem.ToString();
+			};
+
+			String responsable = "";
+			pickerDataModelResponsibles.ValueChanged += (sender, e) => {
+				responsable = pickerDataModelResponsibles.SelectedItem.UserID;
+				this.lblResponsable.Text = pickerDataModelResponsibles.SelectedItem.ToString();
 			};
 
 			String idPadron ="";
@@ -205,7 +219,7 @@ namespace Gestion2013iOS
 			this.btnGuardar.TouchUpInside += (sender, e) => {
 				try{
 					newTaskService = new NewTaskService();
-					String respuesta = newTaskService.SetData(cmpTitulo.Text, cmpDescripcion.Text,categoria,"50","1",lblFechaCont.Text,lblFechaCompr.Text,idPadron,MainView.user
+					String respuesta = newTaskService.SetData(cmpTitulo.Text, cmpDescripcion.Text,categoria,responsable,prioridad,lblFechaCont.Text,lblFechaCompr.Text,idPadron,MainView.user
 					                       ,cmpTelCasa.Text,cmpTelCel.Text,cmpCorreo.Text,lblLatitud.Text,lblLongitud.Text);
 					if (respuesta.Equals("0")){
 						UIAlertView alert = new UIAlertView(){
@@ -258,6 +272,74 @@ namespace Gestion2013iOS
 			base.TouchesEnded (touches, evt);
 		}
 
+		/** Clase para manejar el picker de responsables**/
+		protected class PickerDataModelResponsibles : UIPickerViewModel 
+		{
+			public event EventHandler<EventArgs> ValueChanged;
+
+			/// <summary>
+			/// The items to show up in the picker
+			/// </summary>
+			public List<ResponsibleService> Items
+			{
+				get { return items; }
+				set { items = value; }
+			}
+			List<ResponsibleService> items = new List<ResponsibleService>();
+
+			/// <summary>
+			/// The current selected item
+			/// </summary>
+			public ResponsibleService SelectedItem
+			{
+				get { return items[selectedIndex]; }
+			}
+			protected int selectedIndex = 0;
+
+			/// <summary>
+			/// default constructor
+			/// </summary>
+			public PickerDataModelResponsibles ()
+			{
+			}
+
+			/// <summary>
+			/// Called by the picker to determine how many rows are in a given spinner item
+			/// </summary>
+			public override int GetRowsInComponent (UIPickerView picker, int component)
+			{
+				return items.Count;
+			}
+
+			/// <summary>
+			/// called by the picker to get the text for a particular row in a particular 
+			/// spinner item
+			/// </summary>
+			public override string GetTitle (UIPickerView picker, int row, int component){
+				return items[row].ToString();
+			}
+
+			/// <summary>
+			/// called by the picker to get the number of spinner items
+			/// </summary>
+			public override int GetComponentCount (UIPickerView picker)
+			{
+				return 1;
+			}
+
+			/// <summary>
+			/// called when a row is selected in the spinner
+			/// </summary>
+			public override void Selected (UIPickerView picker, int row, int component)
+			{
+				selectedIndex = row;
+				if (this.ValueChanged != null)
+				{
+					this.ValueChanged (this, new EventArgs ());
+				}	
+			}
+		}
+
 		/** Clase para manejar el picker de prioridades**/
 		protected class PickerDataModel : UIPickerViewModel 
 		{
@@ -266,17 +348,17 @@ namespace Gestion2013iOS
 			/// <summary>
 			/// The items to show up in the picker
 			/// </summary>
-			public List<String> Items
+			public List<PrioritiesService> Items
 			{
 				get { return items; }
 				set { items = value; }
 			}
-			List<String> items = new List<String>();
+			List<PrioritiesService> items = new List<PrioritiesService>();
 
 			/// <summary>
 			/// The current selected item
 			/// </summary>
-			public String SelectedItem
+			public PrioritiesService SelectedItem
 			{
 				get { return items[selectedIndex]; }
 			}

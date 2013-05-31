@@ -193,7 +193,12 @@ namespace Gestion2013iOS
 				cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 				return cell;
 			}
-			
+
+			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				return 60f;
+			}
+
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 			{
 				taskDetailView = new TaskDetailView ();

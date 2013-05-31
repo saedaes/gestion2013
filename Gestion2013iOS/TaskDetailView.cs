@@ -11,6 +11,7 @@ namespace Gestion2013iOS
 		DetailTaskView detailTaskView;
 		//DetailService ds;
 		NewDetailTaskView newDetailTaskView;
+		ChangeStatusService changeStatusService;
 		public static string tareaId;
 		public TaskDetailView () : base ("TaskDetailView", null)
 		{
@@ -63,7 +64,55 @@ namespace Gestion2013iOS
 				newDetailTaskView = new NewDetailTaskView();
 				this.NavigationController.PushViewController(newDetailTaskView, true);
 			};
+
+			this.btnFinalizar.TouchUpInside += (sender, e) => {
+				UIAlertView alert = new UIAlertView(){
+					Title = "¿Esta seguro?", Message = "¿Esta seguro de finalizar la tarea?"
+				};
+				alert.AddButton("Aceptar");
+				alert.AddButton("Cancelar");
+				alert.Show();
+				alert.Clicked += (s, o) => {
+					try{
+						if(o.ButtonIndex==0){
+							changeStatusService = new ChangeStatusService();
+							String respuesta = changeStatusService.SetTask(task.idTarea);
+							if(respuesta.Equals("1")){
+								SuccesConfirmation();
+							} else if(respuesta.Equals("0")){
+								ErrorConfirmation();
+							}
+						
+						}
+					}catch(System.Net.WebException){
+						ServerError();
+					}
+				};
+			};
+		}
+
+		public void SuccesConfirmation(){
+			UIAlertView alert = new UIAlertView(){
+				Title = "Correcto", Message = "Tarea Finalizada Correctamente"
+			};
+			alert.AddButton("Aceptar");
+			alert.Show();
+		}
+
+		public void ErrorConfirmation(){
+			UIAlertView alert = new UIAlertView(){
+				Title = "Error", Message = "La tarea no pudo ser finalizada, intentelo de nuevo"
+			};
+			alert.AddButton("Aceptar");
+			alert.Show();
+		}
+
+		public void ServerError(){
+			UIAlertView alert = new UIAlertView(){
+				Title = "Error", Message = "Error de conexión, no se pudo conectar con el servidor, intentelo de nuevo"
+			};
+			alert.AddButton("Aceptar");
+			alert.Show();
 		}
 	}
 }
-

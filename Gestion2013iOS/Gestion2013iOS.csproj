@@ -137,6 +137,10 @@
     <Compile Include="NewTaskService.cs" />
     <Compile Include="DeleteService.cs" />
     <Compile Include="NewDetailService.cs" />
+    <Compile Include="PrioritiesService.cs" />
+    <Compile Include="ResponsibleService.cs" />
+    <Compile Include="EditTaskService.cs" />
+    <Compile Include="ChangeStatusService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
