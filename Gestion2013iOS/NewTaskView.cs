@@ -203,25 +203,33 @@ namespace Gestion2013iOS
 
 			//Se crea el boton para enviar la informacion al servidor
 			this.btnGuardar.TouchUpInside += (sender, e) => {
-				newTaskService = new NewTaskService();
-				String respuesta = newTaskService.SetData(cmpTitulo.Text, cmpDescripcion.Text,categoria,"50","1",lblFechaCont.Text,lblFechaCompr.Text,idPadron,MainView.user
-				                       ,cmpTelCasa.Text,cmpTelCel.Text,cmpCorreo.Text,lblLatitud.Text,lblLongitud.Text);
-				if (respuesta.Equals("0")){
+				try{
+					newTaskService = new NewTaskService();
+					String respuesta = newTaskService.SetData(cmpTitulo.Text, cmpDescripcion.Text,categoria,"50","1",lblFechaCont.Text,lblFechaCompr.Text,idPadron,MainView.user
+					                       ,cmpTelCasa.Text,cmpTelCel.Text,cmpCorreo.Text,lblLatitud.Text,lblLongitud.Text);
+					if (respuesta.Equals("0")){
+						UIAlertView alert = new UIAlertView(){
+							Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
+						};
+						alert.AddButton("Aceptar");
+						alert.Show();
+					}else if(respuesta.Equals("1")){
+						UIAlertView alert = new UIAlertView(){
+							Title = "Correcto", Message = "La tarea ha sido guardada correctamente"
+						};
+						alert.AddButton("Aceptar");
+						alert.Clicked += (s, o) => {
+							if(o.ButtonIndex==0){
+								NavigationController.PopViewControllerAnimated(true);
+							}
+						};
+						alert.Show();
+					}
+				}catch(System.Net.WebException){
 					UIAlertView alert = new UIAlertView(){
 						Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
 					};
 					alert.AddButton("Aceptar");
-					alert.Show();
-				}else if(respuesta.Equals("1")){
-					UIAlertView alert = new UIAlertView(){
-						Title = "BIEN", Message = "La tarea ha sido guardada correctamente"
-					};
-					alert.AddButton("Aceptar");
-					alert.Clicked += (s, o) => {
-						if(o.ButtonIndex==0){
-							NavigationController.PopViewControllerAnimated(true);
-						}
-					};
 					alert.Show();
 				}
 			};
