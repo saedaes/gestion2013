@@ -11,6 +11,7 @@ namespace Gestion2013iOS
 		DetailTaskView detailTaskView;
 		//DetailService ds;
 		NewDetailTaskView newDetailTaskView;
+		public static string tareaId;
 		public TaskDetailView () : base ("TaskDetailView", null)
 		{
 			this.Title = "Descripcion de tareas";
@@ -41,8 +42,8 @@ namespace Gestion2013iOS
 			this.lblTelefonoSolic.Text = this.task.telCasaSolicitante;
 			this.lblCelSolic.Text = this.task.telCelularSolicitante;
 			this.lblCorreoSolic.Text = this.task.correoSolicitante;
-			this.lblSeccionSolic.Text = this.task.idSeccion;
-			this.lblClaveSolic.Text = this.task.idSolicitante;
+			//this.lblSeccionSolic.Text = this.task.idSeccion;
+			this.lblClaveSolic.Text = this.task.CveElector;
 			this.lblCategoria.Text = this.task.idCategoria;
 			this.lblPrioridad.Text = this.task.idPrioridad;
 			this.lblEstatus.Text = this.task.idEstatus;
@@ -50,6 +51,8 @@ namespace Gestion2013iOS
 			this.lblFecCompromiso.Text = this.task.fechaCompromiso;
 			this.lblFecTermino.Text = this.task.fechaTermino;
 			this.lblFecContacto.Text = this.task.fechaContacto;
+
+			tareaId = task.idTarea;
 
 			this.btnVerDetalle.TouchUpInside += (sender, e) => {
 				detailTaskView = new DetailTaskView();

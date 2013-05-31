@@ -183,7 +183,13 @@ namespace Gestion2013iOS
 				cell.TextLabel.Text = tableItems[indexPath.Row].ToString();
 				cell.TextLabel.Font = UIFont.SystemFontOfSize(15);
 				cell.TextLabel.Lines = 2;
-				
+				if (tableItems [indexPath.Row].idEstatus.Equals ("Finalizado")) {
+					cell.ImageView.Image = UIImage.FromFile ("Images/green.png");
+				} else if (tableItems [indexPath.Row].idEstatus.Equals ("En Proceso")) {
+					cell.ImageView.Image = UIImage.FromFile ("Images/orange.png");
+				}
+				cell.DetailTextLabel.Text= tableItems[indexPath.Row].nombreSolicitante;
+				cell.DetailTextLabel.Lines = 1;
 				cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 				return cell;
 			}
@@ -250,7 +256,7 @@ namespace Gestion2013iOS
 
 			public void ErrorConfirmation(){
 				UIAlertView alert = new UIAlertView(){
-					Title = "Error", Message = "La tarea no pudo ser borrad, intentelo de nuevo"
+					Title = "Error", Message = "La tarea no pudo ser borrada, intentelo de nuevo"
 				};
 				alert.AddButton("Aceptar");
 				alert.Show();

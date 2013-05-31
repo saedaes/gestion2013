@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -135,6 +136,7 @@
     </Compile>
     <Compile Include="NewTaskService.cs" />
     <Compile Include="DeleteService.cs" />
+    <Compile Include="NewDetailService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -149,6 +151,8 @@
   <ItemGroup>
     <BundleResource Include="Resources\Plus_Button.png" />
     <BundleResource Include="Resources\map_button.png" />
+    <BundleResource Include="Images\green.png" />
+    <BundleResource Include="Images\orange.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\External\Newtonsoft.Json\Newtonsoft.Json\Newtonsoft.Json.MonoTouch.csproj">

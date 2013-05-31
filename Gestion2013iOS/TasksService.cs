@@ -21,20 +21,20 @@ namespace Gestion2013iOS
 		public string fechaContacto {get;set;}
 		public string fechaEdicion {get;set;}
 		public string fechaTermino {get;set;}
-		public string finalizado {get;set;}
+		//public string finalizado {get;set;}
 		public string idCategoria {get;set;}
 		public string idPrioridad {get;set;}
 		public string idEstatus {get;set;}
 		public string idResponsable {get;set;}
-		public string idSeccion {get;set;}
-		public string idSolicitante {get;set;}
+		//public string idSeccion {get;set;}
+		public string CveElector {get;set;}
 		public string idTarea {get;set;}
 		public string nombreSolicitante {get;set;}
-		public string otraCategoria {get;set;}
+		//public string otraCategoria {get;set;}
 		public string telCasaSolicitante {get;set;}
 		public string telCelularSolicitante {get;set;}
 		public string usuarioAlta {get;set;}
-		public string usuarioEdicion {get;set;}
+		//public string usuarioEdicion {get;set;}
 
 		string TasksURL = "";
 
@@ -90,20 +90,20 @@ namespace Gestion2013iOS
 			task.fechaContacto = jObject["fechaContacto"].ToString();
 			task.fechaEdicion = jObject["fechaEdicion"].ToString();
 			task.fechaTermino = jObject["fechaTermino"].ToString();
-			task.finalizado = jObject["finalizado"].ToString();
+			//task.finalizado = jObject["finalizado"].ToString();
 			task.idCategoria = jObject["idCategoria"].ToString();
 			task.idPrioridad = jObject["idPrioridad"].ToString();
 			task.idEstatus = jObject["idEstatus"].ToString();
 			task.idResponsable = jObject["idResponsable"].ToString();
-			task.idSeccion = jObject["idSeccion"].ToString();
-			task.idSolicitante = jObject["idSolicitante"].ToString();
+			//task.idSeccion = jObject["idSeccion"].ToString();
+			task.CveElector = jObject["CveElector"].ToString();
 			task.idTarea = jObject["idTarea"].ToString();
 			task.nombreSolicitante = jObject["nombreSolicitante"].ToString();
-			task.otraCategoria = jObject["otraCategoria"].ToString();
+			//task.otraCategoria = jObject["otraCategoria"].ToString();
 			task.telCasaSolicitante = jObject["telCasaSolicitante"].ToString();
 			task.telCelularSolicitante = jObject["telCelularSolicitante"].ToString();
 			task.usuarioAlta = jObject["usuarioAlta"].ToString();
-			task.usuarioEdicion = jObject["usuarioEdicion"].ToString();
+			//task.usuarioEdicion = jObject["usuarioEdicion"].ToString();
 
 			return task;
 		}
