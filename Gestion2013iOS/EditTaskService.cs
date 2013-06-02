@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		}
 		public String SetData (String titulo,String tareaId, String descripcion,String categoria, String responsable, String prioridad, String fechaContacto, 
 		                       String fechaCompromiso, String solicitante, String usuario,String telcasa, String telcel, String correo){
-			string loginURL = "http://148.229.75.81:3000/update_tarea.json?tit=" + titulo + "&desc=" + descripcion + "&resp=" + responsable + "&cat=" + categoria + "&prior=" + prioridad + "&fcontacto=" +
+			string loginURL = "http://198.58.107.204:5810/update_tarea.json?tit=" + titulo + "&desc=" + descripcion + "&resp=" + responsable + "&cat=" + categoria + "&prior=" + prioridad + "&fcontacto=" +
 				fechaContacto + "&fcompromiso=" + fechaCompromiso + "&idpadron=" + solicitante + "&ualta=" + usuario + "&telcasa=" + telcasa + "&telcel=" + telcel + "&correo=" + correo + "&idTarea=" + tareaId;
 			WebRequest request = WebRequest.Create(loginURL);
 			request.Method = "POST";

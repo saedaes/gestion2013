@@ -21,7 +21,7 @@ namespace Gestion2013iOS
 
 		public void FindPeople(String nombre, String apaterno, String amaterno)
 		{
-			this.PeopleURL = "http://148.229.75.81:3000/padron.json?nombre="+nombre+"&apaterno="+apaterno+"&amaterno="+amaterno;
+			this.PeopleURL = "http://198.58.107.204:5810/padron.json?nombre="+nombre+"&apaterno="+apaterno+"&amaterno="+amaterno;
 		}
 
 		public List<PeopleService> All()

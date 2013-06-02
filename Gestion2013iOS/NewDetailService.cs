@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		}
 
 		public String SetData(String idTarea,String descripcion,String usuario){
-			string loginURL = "http://148.229.75.81:3000/detalle_nuevo.json?tarea_id="+ idTarea+"&descrip="+descripcion+"&user="+usuario;
+			string loginURL = "http://198.58.107.204:5810/detalle_nuevo.json?tarea_id="+ idTarea+"&descrip="+descripcion+"&user="+usuario;
 			WebRequest request = WebRequest.Create(loginURL);
 			request.Method = "POST";
 

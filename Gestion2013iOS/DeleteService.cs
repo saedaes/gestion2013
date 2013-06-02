@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		}
 
 		public String SetTask (String idTarea){
-			string loginURL = "http://148.229.75.81:3000/delete_tarea.json?idTarea=" + idTarea;
+			string loginURL = "http://198.58.107.204:5810/delete_tarea.json?idTarea=" + idTarea;
 			WebRequest request = WebRequest.Create(loginURL);
 			request.Method = "POST";
 

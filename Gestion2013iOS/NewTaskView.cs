@@ -124,24 +124,66 @@ namespace Gestion2013iOS
 			actionSheetPicker = new ActionSheetPicker(this.View);
 
 			this.btnResponsable.TouchUpInside += (sender, e) => {
-				responsibleService = new ResponsibleService();
-				pickerDataModelResponsibles.Items = responsibleService.All();
-				actionSheetPicker.Picker.Source = pickerDataModelResponsibles;
-				actionSheetPicker.Show();
+				try{
+					responsibleService = new ResponsibleService();
+					pickerDataModelResponsibles.Items = responsibleService.All();
+					actionSheetPicker.Picker.Source = pickerDataModelResponsibles;
+					actionSheetPicker.Show();
+				}catch(System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pueden cargar los datos, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				} catch(System.Exception){
+					UIAlertView alert = new UIAlertView(){
+						Title = "Lo sentimos", Message = "Ocurrio un problema de ejecucion, intentelo de nuevo"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 
 			this.btnCategoria.TouchUpInside += (sender, e) => {
-				categoryService = new CategoryService();
-				pickerDataModelCategories.Items = categoryService.All();//llenamos el picker view con la respuesta del servicio de categorias
-				actionSheetPicker.Picker.Source = pickerDataModelCategories;
-				actionSheetPicker.Show();
+				try{
+					categoryService = new CategoryService();
+					pickerDataModelCategories.Items = categoryService.All();//llenamos el picker view con la respuesta del servicio de categorias
+					actionSheetPicker.Picker.Source = pickerDataModelCategories;
+					actionSheetPicker.Show();
+				}catch(System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pueden cargar los datos, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				} catch(System.Exception){
+					UIAlertView alert = new UIAlertView(){
+						Title = "Lo sentimos", Message = "Ocurrio un problema de ejecucion, intentelo de nuevo"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 
 			this.btnPrioridad.TouchUpInside += (sender, e) => {
-				prioritiesService = new PrioritiesService();
-				pickerDataModel.Items = prioritiesService.All();//llenamos el pickerview con la lista de prioridades 
-				actionSheetPicker.Picker.Source = pickerDataModel;
-				actionSheetPicker.Show();
+				try{
+					prioritiesService = new PrioritiesService();
+					pickerDataModel.Items = prioritiesService.All();//llenamos el pickerview con la lista de prioridades 
+					actionSheetPicker.Picker.Source = pickerDataModel;
+					actionSheetPicker.Show();
+				} catch(System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pueden cargar los datos, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				} catch(System.Exception){
+					UIAlertView alert = new UIAlertView(){
+						Title = "Lo sentimos", Message = "Ocurrio un problema de ejecucion, intentelo de nuevo"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 
 			this.btnFechaCont.TouchUpInside += (sender, e) => {
@@ -167,16 +209,14 @@ namespace Gestion2013iOS
 
 			actionSheetDatePicker.Picker.ValueChanged += (s, e) => {
 				DateTime fecha1 = (s as UIDatePicker).Date;
-				DateTime fecha2 =fecha1.AddDays(-1);
-				String fecha3 = String.Format("{0:yyyy-MM-dd}",fecha2);
-				this.lblFechaCont.Text = fecha3;
+				String fecha2 = String.Format("{0:yyyy-MM-dd}",fecha1);
+				this.lblFechaCont.Text = fecha2;
 			};
 
 			actionSheetDatePicker1.Picker.ValueChanged += (s, e) => {
 				DateTime fecha1 = (s as UIDatePicker).Date;
-				DateTime fecha2 =fecha1.AddDays(-1);
-				String fecha3 = String.Format("{0:yyyy-MM-dd}",fecha2);
-				this.lblFechaCompr.Text = fecha3;
+				String fecha2 = String.Format("{0:yyyy-MM-dd}",fecha1);
+				this.lblFechaCompr.Text = fecha2;
 			};
 
 			String categoria="";
@@ -204,13 +244,35 @@ namespace Gestion2013iOS
 			};
 
 			this.btnBuscar.TouchUpInside += (sender, e) => {
-				peopleService = new PeopleService();
-				peopleService.FindPeople(this.cmpNombre.Text, this.cmpPaterno.Text, this.cmpMaterno.Text);
+				try{
+					peopleService = new PeopleService();
+					peopleService.FindPeople(this.cmpNombre.Text, this.cmpPaterno.Text, this.cmpMaterno.Text);
 
-				pickerDataModelPeople.Items = peopleService.All();
-				actionSheetPicker = new ActionSheetPicker(this.View);
-				actionSheetPicker.Picker.Source = pickerDataModelPeople;
-				actionSheetPicker.Show();
+					pickerDataModelPeople.Items = peopleService.All();
+					if(pickerDataModelPeople.Items.Count == 0){
+						UIAlertView alert = new UIAlertView(){
+							Title = "Persona no encontrada", Message = "No se encontraron resultados, intentelo de nuevo"
+						};
+						alert.AddButton("Aceptar");
+						alert.Show();
+					}else {
+						actionSheetPicker = new ActionSheetPicker(this.View);
+						actionSheetPicker.Picker.Source = pickerDataModelPeople;
+						actionSheetPicker.Show();
+					}
+				} catch(System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pueden cargar los datos, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				} catch(System.Exception){
+					UIAlertView alert = new UIAlertView(){
+						Title = "Lo sentimos", Message = "Ocurrio un problema de ejecucion, intentelo de nuevo"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 
 			this.cmpSolicitante.Enabled = false;
@@ -239,9 +301,10 @@ namespace Gestion2013iOS
 						};
 						alert.Show();
 					}
-				}catch(System.Net.WebException){
+				}catch(System.Net.WebException ex){
+					Console.WriteLine(ex.ToString());
 					UIAlertView alert = new UIAlertView(){
-						Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
+						Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo, o verifique su conexión a internet"
 					};
 					alert.AddButton("Aceptar");
 					alert.Show();

@@ -17,7 +17,7 @@ namespace Gestion2013iOS
 		public string usuarioAlta {get;set;}
 		public string usuarioEdicion {get;set;}
 
-		string DetailTasksURL =  "http://148.229.75.81:3000/detalle_tarea.json?idTarea="+ TasksView.tareaId;
+		string DetailTasksURL =  "http://198.58.107.204:5810/detalle_tarea.json?idTarea="+ TasksView.tareaId;
 
 		public DetailService()
 		{

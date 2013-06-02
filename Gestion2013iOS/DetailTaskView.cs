@@ -80,6 +80,7 @@ namespace Gestion2013iOS
 					cell.TextLabel.Font = UIFont.SystemFontOfSize(16);
 					cell.DetailTextLabel.Text= detalle.Descripcion;
 					cell.DetailTextLabel.Lines = 3;
+					cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 				}
 				if (indexPath.Row == 1) {
 					cell.TextLabel.Text = "Fecha de Alta:";
@@ -97,7 +98,7 @@ namespace Gestion2013iOS
 				return cell;
 			}
 
-			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+			public override void AccessoryButtonTapped (UITableView tableView, NSIndexPath indexPath)
 			{
 				UIAlertView alert = new UIAlertView(){
 					Title = "¿BORRAR?", Message = "¿Desea borrar el detalle?"

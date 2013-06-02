@@ -47,7 +47,7 @@ namespace Gestion2013iOS
 					}else{
 						LoginService loginService = new LoginService();
 						String respuesta = loginService.SetUserAndPassword(user, password);
-						if(respuesta.Equals("0")){
+						if(respuesta.Equals("0")){	
 							UIAlertView alert = new UIAlertView(){
 								Title = "ERROR", Message = "Datos incorrectos"
 							};
@@ -68,7 +68,7 @@ namespace Gestion2013iOS
 				};
 			}catch(System.Net.WebException){
 				UIAlertView alert = new UIAlertView(){
-					Title = "ERROR", Message = "Error del Servidor, intentelo de nuevo"
+					Title = "ERROR", Message = "No se pudo conectar al servidor, verifique su conexión a internet"
 				};
 				alert.AddButton("Aceptar");
 				alert.Show();
@@ -83,6 +83,12 @@ namespace Gestion2013iOS
 			base.ViewWillDisappear (animated);
 			this.cmpContrasena.Text = "";
 			this.cmpUsuario.Text= "";
+		}
+
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+			user = "";
 		}
 
 		public override void TouchesEnded (NSSet touches, UIEvent evt)

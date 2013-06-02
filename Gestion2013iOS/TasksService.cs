@@ -43,11 +43,11 @@ namespace Gestion2013iOS
 		}
 
 		public void setUser(String appuser){
-			this.TasksURL = "http://148.229.75.81:3000/tareas.json?user="+ appuser;
+			this.TasksURL = "http://198.58.107.204:5810/tareas.json?user="+appuser;
 		}
 
 		public void setUserandStatus(String appuser, String status){
-			this.TasksURL = "http://148.229.75.81:3000/tareas.json?user="+ appuser+"&status="+status;
+			this.TasksURL = "http://198.58.107.204:5810/tareas.json?user="+ appuser+"&status="+status;
 		}
 
 		public List<TasksService> All()

@@ -31,7 +31,7 @@ namespace Gestion2013iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
+			Console.WriteLine (MainView.user);
 			ts = new TasksService ();
 			ts.setUser(MainView.user);
 
@@ -70,7 +70,7 @@ namespace Gestion2013iOS
 			Add(tblTasks);
 			}catch(System.Net.WebException){
 				UIAlertView alert = new UIAlertView(){
-					Title = "ERROR", Message = "Error del Servidor, no se pudo establecer conexión"
+					Title = "ERROR", Message = "No se pudo conectar al servidor, verifique su conexión a internet"
 				};
 				alert.AddButton("Aceptar");
 				alert.Show();
@@ -100,10 +100,18 @@ namespace Gestion2013iOS
 			// boton Todos
 			UIBarButtonItem btnTodos = new UIBarButtonItem("   Todos   ",UIBarButtonItemStyle.Bordered, null);
 			btnTodos.Clicked += (s, e) => { 
-				ts.setUser(MainView.user);
-				List<TasksService> tableItems = ts.All ();
-				this.tblTasks.Source = new TasksTableSource (tableItems,this);
-				this.tblTasks.ReloadData();
+				try{
+					ts.setUser(MainView.user);
+					List<TasksService> tableItems = ts.All ();
+					this.tblTasks.Source = new TasksTableSource (tableItems,this);
+					this.tblTasks.ReloadData();
+				}catch (System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pudo conectar al servidor, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 			// fixed width
 			//UIBarButtonItem fixedWidth = new UIBarButtonItem (UIBarButtonSystemItem.FixedSpace);
@@ -116,11 +124,19 @@ namespace Gestion2013iOS
 			// boton Finalizados
 			UIBarButtonItem btnFinalizados = new UIBarButtonItem("En Proceso",UIBarButtonItemStyle.Bordered, null);
 			btnFinalizados.Clicked += (s, e) => {
+				try{
 				String status = "1";
 				ts.setUserandStatus(MainView.user, status);
 				List<TasksService> tableItems = ts.All ();
 				this.tblTasks.Source = new TasksTableSource (tableItems,this);
 				this.tblTasks.ReloadData();
+				}catch (System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pudo conectar al servidor, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 			// fixed width
 			//UIBarButtonItem fixedWidth = new UIBarButtonItem (UIBarButtonSystemItem.FixedSpace);
@@ -132,11 +148,19 @@ namespace Gestion2013iOS
 			// boton En proceso
 			UIBarButtonItem btnProceso = new UIBarButtonItem("Finalizados",UIBarButtonItemStyle.Bordered, null);
 			btnProceso.Clicked += (s, e) => { 
+				try{
 				String status = "2";
 				ts.setUserandStatus(MainView.user, status);
 				List<TasksService> tableItems = ts.All ();
 				this.tblTasks.Source = new TasksTableSource (tableItems,this);
 				this.tblTasks.ReloadData();
+				} catch(System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pudo conectar al servidor, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 
 			// arreglo de botones para toolbar

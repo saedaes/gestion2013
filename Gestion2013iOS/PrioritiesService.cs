@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		public string Prioridad {get;set;}
 		public string idPrioridad {get;set;}
 
-		string PriorityURL =  "http://148.229.75.81:3000/prioridades.json";
+		string PriorityURL =  "http://198.58.107.204:5810/prioridades.json";
 
 		public PrioritiesService()
 		{

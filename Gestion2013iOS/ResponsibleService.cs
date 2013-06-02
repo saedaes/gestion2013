@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		public string Username {get;set;}
 		public string UserID {get;set;}
 
-		string ResponsibleURL =  "http://148.229.75.81:3000/resp.json";
+		string ResponsibleURL =  "http://198.58.107.204:5810/resp.json";
 
 		public ResponsibleService()
 		{

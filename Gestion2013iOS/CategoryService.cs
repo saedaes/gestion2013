@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		public string Categoria {get;set;}
 		public string idCategoria {get;set;}
 
-		string CategoryURL =  "http://148.229.75.81:3000/categorias.json";
+		string CategoryURL =  "http://198.58.107.204:5810/categorias.json";
 
 		public CategoryService()
 		{

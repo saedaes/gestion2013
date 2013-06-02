@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		}
 
 		public String SetDetail (String idDetalle){
-			string deleteURL = "http://148.229.75.81:3000/delete_detalle.json?idDetalle="+ idDetalle;
+			string deleteURL = "http://198.58.107.204:5810/delete_detalle.json?idDetalle="+ idDetalle;
 			WebRequest request = WebRequest.Create(deleteURL);
 			request.Method = "POST";
 

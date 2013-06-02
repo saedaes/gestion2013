@@ -12,7 +12,7 @@ namespace Gestion2013iOS
 		}
 
 		public String SetUserAndPassword (String user, String password){
-			string loginURL = "http://148.229.75.81:3000/login.json?username="+user+"&"+"password="+password;
+			string loginURL = "http://198.58.107.204:5810/login.json?username="+user+"&"+"password="+password;
 			WebRequest request = WebRequest.Create(loginURL);
 			request.Method = "POST";
 
