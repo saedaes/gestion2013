@@ -60,7 +60,7 @@ namespace Gestion2013iOS
 
 			//Se esconde el booton para ir a la vista anterior
 			this.NavigationItem.HidesBackButton = true;
-
+			 
 
 			//se crea el boton para regresar a la vista anterior, verificando que la tarea haya sido dada de alta
 			UIBarButtonItem regresar = new UIBarButtonItem();
@@ -197,19 +197,19 @@ namespace Gestion2013iOS
 
 			String categoria=task.idCategoria;
 			pickerDataModelCategories.ValueChanged += (sender, e) => {
-				categoria = pickerDataModelCategories.SelectedItem.idCategoria;
+				categoria = pickerDataModelCategories.SelectedItem.Categoria;
 				this.lblCategoria.Text = pickerDataModelCategories.SelectedItem.ToString();
 			};
 
 			String prioridad = task.idPrioridad;
 			pickerDataModel.ValueChanged += (sender, e) => {
-				prioridad = pickerDataModel.SelectedItem.idPrioridad;
+				prioridad = pickerDataModel.SelectedItem.Prioridad;
 				this.lblPrioridad.Text = pickerDataModel.SelectedItem.ToString();
 			};
 
 			String responsable = task.idResponsable;
 			pickerDataModelResponsibles.ValueChanged += (sender, e) => {
-				responsable = pickerDataModelResponsibles.SelectedItem.UserID;
+				responsable = pickerDataModelResponsibles.SelectedItem.Username;
 				this.lblResponsable.Text = pickerDataModelResponsibles.SelectedItem.ToString();
 			};
 

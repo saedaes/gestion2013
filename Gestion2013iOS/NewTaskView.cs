@@ -197,24 +197,27 @@ namespace Gestion2013iOS
 			//Establecemos las propiedades del primer datepicker
 			actionSheetDatePicker = new ActionSheetDatePicker (this.View);
 			actionSheetDatePicker.Picker.Mode = UIDatePickerMode.Date;
-			//actionSheetDatePicker.Picker.TimeZone = NSTimeZone.LocalTimeZone;
+			actionSheetDatePicker.Picker.TimeZone = NSTimeZone.LocalTimeZone;
 			//actionSheetDatePicker.Picker.MinimumDate = DateTime.Today.AddDays (-7);
 			//actionSheetDatePicker.Picker.MaximumDate = DateTime.Today.AddDays (7);	
 
 			//Establecemos las propiedades del segundo datepicker
 			actionSheetDatePicker1 = new ActionSheetDatePicker (this.View);
 			actionSheetDatePicker1.Picker.Mode = UIDatePickerMode.Date;
+			actionSheetDatePicker1.Picker.TimeZone = NSTimeZone.LocalTimeZone;
 			//actionSheetDatePicker1.Picker.MinimumDate = DateTime.Today.AddDays (-7);
 			//actionSheetDatePicker1.Picker.MaximumDate = DateTime.Today.AddDays (7);	
 
 			actionSheetDatePicker.Picker.ValueChanged += (s, e) => {
 				DateTime fecha1 = (s as UIDatePicker).Date;
+				//DateTime fecha3 = fecha1.AddDays(-1);
 				String fecha2 = String.Format("{0:yyyy-MM-dd}",fecha1);
 				this.lblFechaCont.Text = fecha2;
 			};
 
 			actionSheetDatePicker1.Picker.ValueChanged += (s, e) => {
-				DateTime fecha1 = (s as UIDatePicker).Date;
+				DateTime fecha1 = (s as UIDatePicker).Date; 
+				//DateTime fecha3 = fecha1.AddDays(-1);
 				String fecha2 = String.Format("{0:yyyy-MM-dd}",fecha1);
 				this.lblFechaCompr.Text = fecha2;
 			};

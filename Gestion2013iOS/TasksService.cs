@@ -26,7 +26,7 @@ namespace Gestion2013iOS
 		public string idPrioridad {get;set;}
 		public string idEstatus {get;set;}
 		public string idResponsable {get;set;}
-		//public string idSeccion {get;set;}
+		public string seccion {get;set;}
 		public string CveElector {get;set;}
 		public string idTarea {get;set;}
 		public string nombreSolicitante {get;set;}
@@ -95,7 +95,7 @@ namespace Gestion2013iOS
 			task.idPrioridad = jObject["idPrioridad"].ToString();
 			task.idEstatus = jObject["idEstatus"].ToString();
 			task.idResponsable = jObject["idResponsable"].ToString();
-			//task.idSeccion = jObject["idSeccion"].ToString();
+			task.seccion = jObject["seccion"].ToString();
 			task.CveElector = jObject["CveElector"].ToString();
 			task.idTarea = jObject["idTarea"].ToString();
 			task.nombreSolicitante = jObject["nombreSolicitante"].ToString();

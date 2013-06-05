@@ -159,6 +159,7 @@
     <BundleResource Include="Resources\map_button.png" />
     <BundleResource Include="Images\green.png" />
     <BundleResource Include="Images\orange.png" />
+    <BundleResource Include="Resources\refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\External\Newtonsoft.Json\Newtonsoft.Json\Newtonsoft.Json.MonoTouch.csproj">

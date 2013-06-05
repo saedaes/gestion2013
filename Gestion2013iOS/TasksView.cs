@@ -32,6 +32,7 @@ namespace Gestion2013iOS
 		{
 			base.ViewDidLoad ();
 			Console.WriteLine (MainView.user);
+			this.lblUsuario.Text = MainView.user;
 			ts = new TasksService ();
 			ts.setUser(MainView.user);
 
@@ -86,6 +87,22 @@ namespace Gestion2013iOS
 			btnMap.TouchUpInside += (sender, e) => {
 				mapView = new MapViewController();
 				this.NavigationController.PushViewController(mapView, true);
+			};
+
+			//Boton refrescar
+			btnRefresh.TouchUpInside += (sender, e) => {
+				try{
+					ts.setUser(MainView.user);
+					List<TasksService> tableItems = ts.All ();
+					this.tblTasks.Source = new TasksTableSource (tableItems,this);
+					this.tblTasks.ReloadData();
+				}catch(System.Net.WebException){
+					UIAlertView alert = new UIAlertView(){
+						Title = "ERROR", Message = "No se pudo conectar al servidor, verifique su conexión a internet"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
 			};
 
 			 // creacion de la barra de herramientas
@@ -215,15 +232,15 @@ namespace Gestion2013iOS
 				} else if (tableItems [indexPath.Row].idEstatus.Equals ("En Proceso")) {
 					cell.ImageView.Image = UIImage.FromFile ("Images/orange.png");
 				}
-				cell.DetailTextLabel.Text= tableItems[indexPath.Row].nombreSolicitante;
-				cell.DetailTextLabel.Lines = 1;
+				cell.DetailTextLabel.Text= tableItems[indexPath.Row].nombreSolicitante +"\n"+ tableItems[indexPath.Row].idPrioridad;
+				cell.DetailTextLabel.Lines = 2;
 				cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 				return cell;
 			}
 
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return 60f;
+				return 75f;
 			}
 
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
@@ -296,7 +313,9 @@ namespace Gestion2013iOS
 
 			public void ServerError(){
 				UIAlertView alert = new UIAlertView(){
-					Title = "Error", Message = "Error de conexión, no se pudo conectar con el servidor, intentelo de nuevo"
+					Title = "Error", Message = "Si la tarea cuenta con detalles debe eliminarlos primero. "+
+					"En caso de que no cuente con detalles o que ya hayan sido eliminados "+
+					"verifique su conexión a internet"
 				};
 				alert.AddButton("Aceptar");
 				alert.Show();

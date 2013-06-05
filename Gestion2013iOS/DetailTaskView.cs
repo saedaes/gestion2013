@@ -31,10 +31,25 @@ namespace Gestion2013iOS
 		{
 			base.ViewDidLoad ();
 
-			detailService = new DetailService ();
-			List<DetailService> tableItems = detailService.All ();
-			this.tblDetalles.Source = new DetailTableSource (tableItems,this);
-			Add(tblDetalles);
+			try{
+				detailService = new DetailService ();
+				List<DetailService> tableItems = detailService.All ();
+				this.tblDetalles.Source = new DetailTableSource (tableItems,this);
+				Add(tblDetalles);
+				if(tableItems.Count == 0){
+					UIAlertView alert = new UIAlertView(){
+						Title = "Sin Detalles", Message = "Esta tarea no tiene capturado ningun detalle"
+					};
+					alert.AddButton("Aceptar");
+					alert.Show();
+				}
+			} catch(System.Net.WebException){
+				UIAlertView alert = new UIAlertView(){
+					Title = "ERROR", Message = "No se pueden cargar los datos, verifique su conexión a internet"
+				};
+				alert.AddButton("Aceptar");
+				alert.Show();
+			}
 		}
 
 		//Clase para manejar la lista

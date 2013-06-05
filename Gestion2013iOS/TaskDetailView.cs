@@ -43,7 +43,7 @@ namespace Gestion2013iOS
 			this.lblTelefonoSolic.Text = this.task.telCasaSolicitante;
 			this.lblCelSolic.Text = this.task.telCelularSolicitante;
 			this.lblCorreoSolic.Text = this.task.correoSolicitante;
-			//this.lblSeccionSolic.Text = this.task.idSeccion;
+			this.lblSeccionSolic.Text = this.task.seccion;
 			this.lblClaveSolic.Text = this.task.CveElector;
 			this.lblCategoria.Text = this.task.idCategoria;
 			this.lblPrioridad.Text = this.task.idPrioridad;
@@ -64,6 +64,10 @@ namespace Gestion2013iOS
 				newDetailTaskView = new NewDetailTaskView();
 				this.NavigationController.PushViewController(newDetailTaskView, true);
 			};
+
+			if (task.idEstatus.Equals ("Finalizado")) {
+				this.btnFinalizar.Hidden = true;
+			}
 
 			this.btnFinalizar.TouchUpInside += (sender, e) => {
 				UIAlertView alert = new UIAlertView(){

@@ -22,6 +22,12 @@ namespace Gestion2013iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton btnMap { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnRefresh { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel lblUsuario { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -43,6 +49,16 @@ namespace Gestion2013iOS
 			if (btnMap != null) {
 				btnMap.Dispose ();
 				btnMap = null;
+			}
+
+			if (btnRefresh != null) {
+				btnRefresh.Dispose ();
+				btnRefresh = null;
+			}
+
+			if (lblUsuario != null) {
+				lblUsuario.Dispose ();
+				lblUsuario = null;
 			}
 		}
 	}

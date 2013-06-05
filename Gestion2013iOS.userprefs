@@ -1,22 +1,23 @@
 ﻿<Properties GitUserInfo="UsingGIT">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.5.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Gestion2013iOS/TasksView.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.5.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Gestion2013iOS/NewTaskView.cs">
     <Files>
-      <File FileName="Gestion2013iOS/MainView.cs" Line="74" Column="18" />
-      <File FileName="../carnet_movil/CarnetMovil/CarnetMoviliOS/EventsView.cs" Line="1" Column="1" />
-      <File FileName="Gestion2013iOS/NewTaskView.cs" Line="220" Column="8" />
-      <File FileName="../copaes-movil/CopaesMoviliOS/InstitucionesView.cs" Line="1" Column="1" />
-      <File FileName="../carnet_movil/CarnetMovil/CarnetMoviliOS/LocationView.cs" Line="1" Column="1" />
-      <File FileName="Gestion2013iOS/TasksService.cs" Line="69" Column="5" />
-      <File FileName="Gestion2013iOS/NewTaskService.cs" Line="17" Column="48" />
-      <File FileName="../copaes-movil/CopaesMoviliOS/MainView.cs" Line="1" Column="1" />
-      <File FileName="Gestion2013iOS/TasksView.cs" Line="74" Column="35" />
+      <File FileName="Gestion2013iOS/TasksView.cs" Line="1" Column="1" />
+      <File FileName="Gestion2013iOS/MainView.cs" Line="1" Column="1" />
+      <File FileName="Gestion2013iOS/NewTaskView.cs" Line="50" Column="4" />
+      <File FileName="Gestion2013iOS/DetailService.cs" Line="1" Column="1" />
+      <File FileName="Gestion2013iOS/TasksService.cs" Line="1" Column="1" />
+      <File FileName="Gestion2013iOS/EditTaskView.cs" Line="71" Column="29" />
+      <File FileName="Gestion2013iOS/TaskDetailView.cs" Line="1" Column="1" />
+      <File FileName="Gestion2013iOS/DetailTaskView.cs" Line="1" Column="1" />
+      <File FileName="Gestion2013iOS/NewDetailService.cs" Line="1" Column="1" />
+      <File FileName="Gestion2013iOS/NewTaskService.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Gestion2013iOS" expanded="True">
-            <Node name="TasksView.cs" selected="True" />
+            <Node name="NewTaskView.cs" selected="True" />
           </Node>
         </State>
       </Pad>
